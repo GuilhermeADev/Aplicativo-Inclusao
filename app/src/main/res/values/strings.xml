@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Inclusao</string>
+    <string name="app_nam">notification</string>
+
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="entrar">Entrar</string>
+    <string name="Cadastro">Crie uma conta clicando aqui</string>
+    <string name="text_email">Email</string>
+    <string name="text_senha">Senha</string>
+    <string name="logo">logo</string>
+    <string name="letras">letras</string>
+    <string name="text_cadastro">Cadastre-se</string>
+    <string name="text_name"> Nome </string>
+    <string name="text_sobrenome">Sobrenome</string>
+    <string name="text_CEP">CEP</string>
+    <string name="text_Rua">Rua</string>
+    <string name="text_estado">Estado</string>
+    <string name="text_Cidade">Cidade</string>
+    <string name="text_avançar">Avançar</string>
+    <string name="text_telefone">Telefone</string>
+    <string name="text_login_cadastrar">Entrar ou cadastra-se</string>
+    <string name="text_entrar_convidado">Entrar como convidado</string>
+    <string name="text_welcome">Bem-vindo</string>
+
+    <string name="texto_pular">Pular</string>
+    <string name="texto_proximo">Próximo</string>
+
+
+    <string name="text_Buscar">Buscar</string>
+    <string name="text_bairro">Bairro</string>
+    <string name="text_Sim">Sim</string>
+    <string name="text_Não">Não</string>
+    <string name="text_question">Convive com alguém que tenha alguma deficiência?</string>
+    <string name="text_question_deficiencia">Qual o grau de parentesco com a pessoa?</string>
+    <string name="text_question_deficiencia2">Qual a necessidade especial da pessoa?</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="icone_1_Noticias">Notícias</string>
+    <string name="icone_2_eventos">Eventos</string>
+    <string name="icone_3_sobre_nós">Sobre nós</string>
+    <string name="icone_3_matricula">Matrícula</string>
+    <string name="icone_4_cursos">Cursos</string>
+    <string name="icone_5_Sobre_Aee">Sobre AEE</string>
+    <string name="icone_6_projetos">Projetos</string>
+    <string name="icone_7_ouvidoria">Ouvidoria e Sugestões</string>
+    <string name="icone_8_redes_sociais">Redes Sociais</string>
+
+
+    <string name="Welcome_Screen1_text">Tem o instuito de\noferecer às crianças\ncom alguma\nnecessidade especial\num convívio social e\numa educação de\nfato, inclusiva,\nrespeitando suas\nlimitações e\nhabilidades</string>
+    <string name="Welcome_Screen2_text">Esse aplicativo foi\ncriado para você!\nAuxiliar Educacional,\nEstagiário, Educador,\nFamiliar ou somente\nalguém interessado</string>
+    <string name="Welcome_Screen3_text">Gostou do nosso aplicativo? Nos ajude deixando sua avaliação! Sua opinião é importante para nós. Estamos sempre à disposição para melhorar e atender suas necessidades. Obrigado!</string>
+
+</resources>

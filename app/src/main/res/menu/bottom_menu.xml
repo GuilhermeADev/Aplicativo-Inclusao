@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Menu" android:icon="@drawable/home" android:id="@+id/firstFragment" />
+    <item android:title="Eventos" android:icon="@drawable/avisos" android:id="@+id/secondFragment"/>
+    <item android:title="Sugestões" android:icon="@drawable/chat" android:id="@+id/thirdFragment"/>
+</menu>

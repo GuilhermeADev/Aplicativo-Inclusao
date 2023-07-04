@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background1"
+        tools:context=".Screens.WelcomeScreen1">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_rede_inclusiva"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toTopOf="@id/img_welcome"/>
+
+        <ImageView
+            android:id="@+id/img_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/welcome1"
+            app:layout_constraintEnd_toEndOf="@id/imageView2"
+            app:layout_constraintStart_toStartOf="@id/imageView2"
+            app:layout_constraintTop_toBottomOf="@id/imageView2"/>
+
+        <TextView
+            android:id="@+id/textoBoasVindas"
+            style="@style/StyleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="170dp"
+            android:layout_marginBottom="320dp"
+            android:text="@string/Welcome_Screen1_text"
+            android:textSize="23sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/img_welcome"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/imageRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="224dp"
+            android:layout_marginBottom="35dp"
+            android:src="@drawable/ic_circle_full"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageempty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="192dp"
+            android:layout_marginBottom="35dp"
+            android:src="@drawable/outline_circle_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageempty2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="35dp"
+            android:src="@drawable/outline_circle_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/Próximo"
+            style="@style/ShowText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/texto_proximo"
+            android:textColor="@color/strongorange"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/Pular"
+            style="@style/ShowText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="260dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/texto_pular"
+            android:textColor="@color/orange"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

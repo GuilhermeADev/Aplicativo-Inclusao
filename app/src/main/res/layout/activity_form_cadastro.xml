@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context=".Screens.FormLogin">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_cabi"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBaseline_toTopOf="@id/title_cad"/>
+
+    <TextView
+        android:id="@+id/title_cad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_cadastro"
+        android:textSize="50sp"
+        android:textColor="@color/blue1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        />
+
+    <View
+        android:id="@+id/containercomponents"
+        style="@style/ContainerComponentsCadastro"
+        app:layout_constraintTop_toBottomOf="@id/title_cad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <EditText android:autofillHints="name"
+        android:id="@+id/nome"
+        style="@style/edit_Text"
+        android:hint="@string/text_name"
+        android:inputType="text"
+        app:layout_constraintTop_toTopOf="@id/containercomponents"
+        app:layout_constraintStart_toStartOf="@id/containercomponents"
+        app:layout_constraintEnd_toEndOf="@id/containercomponents"
+        android:textColor="@color/black"/>
+
+    <EditText android:autofillHints="name"
+        android:id="@+id/sobrenome"
+        style="@style/edit_Text"
+        android:hint="@string/text_sobrenome"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/nome"
+        app:layout_constraintStart_toStartOf="@id/nome"
+        app:layout_constraintEnd_toEndOf="@id/nome"
+        android:textColor="@color/black"
+        />
+
+    <EditText android:autofillHints="phone"
+        android:id="@+id/telefone"
+        style="@style/edit_Text"
+        android:hint="@string/text_telefone"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/sobrenome"
+        app:layout_constraintStart_toStartOf="@id/sobrenome"
+        app:layout_constraintEnd_toEndOf="@id/sobrenome"
+        android:textColor="@color/black"
+        />
+
+    <EditText android:autofillHints="emailAddress"
+        android:id="@+id/email"
+        style="@style/edit_Text"
+        android:hint="@string/text_email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/telefone"
+        app:layout_constraintStart_toStartOf="@id/telefone"
+        app:layout_constraintEnd_toEndOf="@id/telefone"
+        android:textColor="@color/black"/>
+
+    <EditText android:autofillHints="password"
+        android:id="@+id/senha"
+        style="@style/edit_Text"
+        android:hint="@string/text_senha"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintStart_toStartOf="@id/email"
+        app:layout_constraintEnd_toEndOf="@id/email"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/TextViewQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/text_question"
+        style="@style/ShowText"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/senha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <RadioGroup
+        android:id="@+id/radioGroupRespostas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/TextViewQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonNão"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_Não" />
+        <RadioButton
+            android:id="@+id/radioButtonSim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_Sim"
+            android:layout_marginStart="100dp"
+            />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editTextDeficiencia"
+        style="@style/edit_Text"
+        android:hint="@string/text_question_deficiencia"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupRespostas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/editTextDeficiencia2"
+        style="@style/edit_Text"
+        android:hint="@string/text_question_deficiencia2"
+        app:layout_constraintTop_toBottomOf="@id/editTextDeficiencia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Button"
+        style="@style/Button"
+        android:layout_marginTop="15dp"
+        android:text="@string/text_cadastro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextDeficiencia2" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+

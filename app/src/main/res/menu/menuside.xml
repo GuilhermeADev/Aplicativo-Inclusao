@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="nav_view">
+        <item
+            android:icon="@drawable/person"
+            android:title="InclusãoIbirité"></item>
+        <item
+            android:icon="@drawable/share"
+            android:title="Compartilhar"></item>
+        <item
+            android:id="@+id/getout"
+            android:icon="@drawable/exit"
+            android:title="Sair da conta"></item>
+
+
+    <item android:title="Informações">
+        <menu>
+            <item
+                android:icon="@drawable/pref"
+                android:title="Prefeitura" />
+            <item
+                android:icon="@drawable/info"
+                android:title="Sobre nós" />
+
+        </menu>
+    </item>
+</menu>

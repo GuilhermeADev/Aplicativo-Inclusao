@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context=".Screens.FormLogin">
+
+
+                                <!--< Logo/>-->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_cabi"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBaseline_toTopOf="@id/criancas"/>
+
+
+                                <!--< Letras />-->
+    <ImageView
+        android:id="@+id/text_tela_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/letra1"
+        app:layout_constraintTop_toTopOf="@id/criancas"
+        app:layout_constraintBottom_toBottomOf="@id/logo"
+        app:layout_constraintEnd_toEndOf="@id/criancas"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="@string/letras"
+        />
+
+                            <!--< Imagem crianças />-->
+    <ImageView
+        android:id="@+id/criancas"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="72dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/adolescentes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
+
+                                <!--< Container />-->
+    <View
+        android:id="@+id/containercomponents"
+        style="@style/ContainerComponents"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/criancas" />
+
+                                <!-- Edit email />-->
+    <EditText android:autofillHints="emailAddress"
+        android:id="@+id/edit_email"
+        style="@style/edit_Text"
+        android:hint="@string/text_email"
+        android:textColorHint="@color/black"
+        android:drawableEnd="@drawable/ic_email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="@id/containercomponents"
+        app:layout_constraintEnd_toEndOf="@id/containercomponents"
+        app:layout_constraintTop_toTopOf="@id/containercomponents"
+        android:textColor="@color/black"/>
+
+                                <!--< Edit senha/>-->
+    <EditText android:autofillHints="password"
+        android:id="@+id/edit_senha"
+        style="@style/edit_Text"
+        android:hint="@string/text_senha"
+        android:textColorHint="@color/black"
+        android:inputType="textPassword"
+        android:drawableEnd="@drawable/ic_eye"
+        app:layout_constraintStart_toStartOf="@id/containercomponents"
+        app:layout_constraintEnd_toEndOf="@id/containercomponents"
+        app:layout_constraintTop_toBottomOf="@id/edit_email"
+        android:textColor="@color/black"
+        />
+
+
+                                    <!--< Botão />-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_entrar"
+        style="@style/Button"
+        android:text="@string/entrar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_senha"
+        />
+
+                                <!--< Clique para cadastrar />-->
+    <TextView
+        android:id="@+id/cadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Cadastro"
+        app:layout_constraintTop_toBottomOf="@id/containercomponents"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        android:textColor="@color/red1"
+        />
+
+                                    <!--< Progress Bar />-->
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cadastro"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

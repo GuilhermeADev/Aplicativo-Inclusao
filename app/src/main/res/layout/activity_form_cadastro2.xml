@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.FormCadastro2"
+    android:background="@drawable/background1">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_cabi"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBaseline_toTopOf="@id/title_cad"/>
+
+    <TextView
+        android:id="@+id/title_cad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_cadastro"
+        android:textSize="50sp"
+        android:textColor="@color/blue1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        />
+
+    <View
+        android:id="@+id/containercomponents"
+        style="@style/ContainerComponentsCadastro"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_cad" />
+
+    <EditText
+        android:id="@+id/editTextCep"
+        style="@style/edit_Text"
+        android:layout_marginTop="12dp"
+        android:autofillHints="postalAddress"
+        android:hint="@string/text_CEP"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@id/containercomponents"
+        app:layout_constraintStart_toStartOf="@id/containercomponents"
+        app:layout_constraintTop_toTopOf="@id/containercomponents"
+        android:textColor="@color/black"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/editTextCep"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        android:layout_marginEnd="-270dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <EditText android:autofillHints="postalAddress"
+        android:id="@+id/textViewRua"
+        style="@style/edit_Text"
+        android:hint="@string/text_Rua"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextCep"
+        app:layout_constraintStart_toStartOf="@id/editTextCep"
+        app:layout_constraintEnd_toEndOf="@id/editTextCep"
+        android:textColor="@color/black"
+        />
+
+    <EditText android:autofillHints="postalAddress"
+        android:id="@+id/textViewBairro"
+        style="@style/edit_Text"
+        android:hint="@string/text_bairro"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/textViewRua"
+        app:layout_constraintStart_toStartOf="@id/textViewRua"
+        app:layout_constraintEnd_toEndOf="@id/textViewRua"
+        android:textColor="@color/black"
+        />
+
+
+    <EditText android:autofillHints="postalAddress"
+        android:id="@+id/textViewCidade"
+        style="@style/edit_Text"
+        android:hint="@string/text_Cidade"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/textViewBairro"
+        app:layout_constraintStart_toStartOf="@id/textViewBairro"
+        app:layout_constraintEnd_toEndOf="@id/textViewBairro"
+        android:textColor="@color/black"
+        />
+
+    <EditText android:autofillHints="ESTADO"
+        android:id="@+id/textViewEstado"
+        style="@style/edit_Text"
+        android:hint="@string/text_estado"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/textViewCidade"
+        app:layout_constraintStart_toStartOf="@id/textViewCidade"
+        app:layout_constraintEnd_toEndOf="@id/textViewCidade"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Btavancar"
+        style="@style/Button"
+        android:text="@string/text_avançar"
+        app:layout_constraintTop_toBottomOf="@id/containercomponents"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

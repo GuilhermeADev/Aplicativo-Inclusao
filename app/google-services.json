@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "302141420802",
+    "project_id": "inclusao-d62f4",
+    "storage_bucket": "inclusao-d62f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302141420802:android:616b98f61ebfa8becd3e1b",
+        "android_client_info": {
+          "package_name": "com.example.inclusao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302141420802-g0rqf1c2uot8nt7orskj4pmsggrd7r9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcnGORHlHGXxMQh-U3mdZrtqiwYO7uF4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302141420802-g0rqf1c2uot8nt7orskj4pmsggrd7r9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

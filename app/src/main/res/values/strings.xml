@@ -59,4 +59,12 @@
     <string name="Welcome_Screen2_text">Esse aplicativo foi\ncriado para você!\nAuxiliar Educacional,\nEstagiário, Educador,\nFamiliar ou somente\nalguém interessado</string>
     <string name="Welcome_Screen3_text">Gostou do nosso aplicativo? Nos ajude deixando sua avaliação! Sua opinião é importante para nós. Estamos sempre à disposição para melhorar e atender suas necessidades. Obrigado!</string>
 
+
+    <string name="postar_noticia_text">Publicar Notícias </string>
+    <string name="botao_publicar">Publicar Noticia</string>
+    <string name="botao_notificar">Notificar</string>
+    <string name="botao_editar_texto">Digite o conteúdo da notícia</string>
+    <string name="botao_adicionar_imagem">Adicionar Imagem</string>
+
+
 </resources>

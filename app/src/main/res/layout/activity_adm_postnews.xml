@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Adm.adm_postnews"
+    android:background="@drawable/background1">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAddImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/botao_adicionar_imagem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="100dp"
+            />
+
+        <EditText
+            android:id="@+id/editTextContent"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/botao_editar_texto"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/buttonAddImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            style="@style/edit_Text"
+            android:maxLength="99999999"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_publicar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Button2"
+            android:text="@string/botao_publicar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextContent"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_notificar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Button"
+            android:text="@string/botao_notificar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bt_publicar"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

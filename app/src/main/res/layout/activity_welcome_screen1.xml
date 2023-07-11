@@ -20,7 +20,8 @@
             android:src="@drawable/logo_rede_inclusiva"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBaseline_toTopOf="@id/img_welcome"/>
+            app:layout_constraintBaseline_toTopOf="@id/img_welcome"
+            />
 
         <ImageView
             android:id="@+id/img_welcome"
@@ -29,7 +30,7 @@
             android:src="@drawable/welcome1"
             app:layout_constraintEnd_toEndOf="@id/imageView2"
             app:layout_constraintStart_toStartOf="@id/imageView2"
-            app:layout_constraintTop_toBottomOf="@id/imageView2"/>
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
 
         <TextView
             android:id="@+id/textoBoasVindas"
@@ -37,16 +38,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="170dp"
-            android:layout_marginBottom="320dp"
             android:text="@string/Welcome_Screen1_text"
-            android:textSize="23sp"
+            android:textSize="21.4sp"
+            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/img_welcome"
+            app:layout_constraintTop_toTopOf="@id/img_welcome"
             android:gravity="center_vertical"
-            android:padding="10dp"
-            />
-
+            android:padding="10dp" />
 
         <ImageView
             android:id="@+id/imageRight"

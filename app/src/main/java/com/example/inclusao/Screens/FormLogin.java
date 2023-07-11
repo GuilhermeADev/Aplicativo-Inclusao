@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.inclusao.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,12 +21,17 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FormLogin extends AppCompatActivity {
     private TextView cadastro;
     private EditText edit_email, edit_senha;
     private Button bt_entrar;
     private ProgressBar progressBar;
+
+    private TextView esqueciSenha;
+
+    private TextView convidado;
 
     String[] mensagens = {"Preencha todos os campos"};
 
@@ -43,6 +49,31 @@ public class FormLogin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        convidado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signInAnonymously()
+                        .addOnCompleteListener(FormLogin.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    //Aut anonima bem-sucedia
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Intent intent = new Intent( FormLogin.this, WelcomeScreen1.class);
+                                    startActivity(intent);
+                                } else {
+                                    //ocorreu um erro durante o auth
+                                    Toast.makeText(FormLogin.this, "Autenticação anônima falhou.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
+
+
 
         bt_entrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +146,8 @@ public class FormLogin extends AppCompatActivity {
         edit_senha = findViewById(R.id.edit_senha);
         bt_entrar = findViewById(R.id.bt_entrar);
         progressBar = findViewById(R.id.progressbar);
+        convidado = findViewById(R.id.Convidado);
+        esqueciSenha = findViewById(R.id.esqueciSenha);
 
     }
-
 }

@@ -6,10 +6,9 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
-
 
     <application
         android:allowBackup="true"
@@ -22,8 +21,9 @@
         android:theme="@style/Theme.Inclusao"
         tools:targetApi="31">
         <activity
-            android:name=".Adm.adm_postnews"
+            android:name=".Screens.Noticias"
             android:exported="false" />
+
         <activity
             android:name=".Screens.Home"
             android:exported="false" />
@@ -39,9 +39,7 @@
         <activity
             android:name=".Screens.WelcomeScreen1"
             android:exported="false" />
-        <activity
-            android:name=".Screens.FormLogin"
-            android:exported="false" />
+
         <activity
             android:name=".Screens.FormCadastro"
             android:exported="false" />
@@ -49,10 +47,7 @@
             android:name=".Screens.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Screens.ScreenCardView"
-            android:exported="true" />
-        <activity
-            android:name=".Screens.FormChoice"
+            android:name=".Screens.FormLogin"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Inclusao">

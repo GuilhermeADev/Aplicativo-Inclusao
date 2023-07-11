@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,22 +6,24 @@
     android:fillViewport="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Adm.adm_postnews"
+    tools:context=".Screens.Noticias"
     android:background="@drawable/background1">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <ImageView
             android:id="@+id/imageViewSelectedImage"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +31,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="50dp"
             app:layout_constraintBottom_toTopOf="@id/buttonAddImage" />
+
+
+        <ImageView
+            android:id="@+id/addnews"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:src="@drawable/bt_add"
+            app:layout_constraintTop_toBottomOf="@id/bt_notificar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp" />
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddImage"
@@ -55,7 +68,7 @@
             android:layout_marginTop="16dp"
             android:padding="16dp"
             style="@style/edit_Text"
-            android:maxLength="99999999"
+            android:maxLength="999999999"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -80,7 +93,6 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

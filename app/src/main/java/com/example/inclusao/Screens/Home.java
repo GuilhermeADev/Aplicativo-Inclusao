@@ -46,35 +46,34 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        //iniciarComponents();
+        nav_view = findViewById(R.id.nav_view);
+
+
+        View headerView = nav_view.getHeaderView(0);
+        nome_usuario = headerView.findViewById(R.id.text_nomeUs);
+
+
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController=null;
-        try{
-            navController = navHostFragment.getNavController();}
-        catch (Exception e){
-            Toast.makeText(Home.this, "Deu ruim", Toast.LENGTH_SHORT).show();
-            finish(); //ESTAVA AQUI
-        }
+        NavController navController = navHostFragment.getNavController();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        /*
-
-        nav_view = findViewById(R.id.nav_view);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+/*
+        nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
 
-
                 if (id == R.id.getout) {
-                        Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
                     return true;
                 }
 
@@ -82,13 +81,9 @@ public class Home extends AppCompatActivity {
             }
         });*/
 
-
-
-
-
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
-
-
 
     public void changeFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -97,7 +92,7 @@ public class Home extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-/*
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -113,10 +108,10 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-/*
+
     public void iniciarComponents(){
         View headerView = nav_view.getHeaderView(0);
         nome_usuario = headerView.findViewById(R.id.text_nomeUs);
-    }*/
+    }
 
 }

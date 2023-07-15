@@ -65,6 +65,6 @@
     <string name="botao_notificar">Notificar</string>
     <string name="botao_editar_texto">Digite o conteúdo da notícia</string>
     <string name="botao_adicionar_imagem">Adicionar Imagem</string>
-
+    <string name="texto_titulo">Título da notícia</string>
 
 </resources>

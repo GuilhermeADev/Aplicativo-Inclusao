@@ -19,4 +19,8 @@
     <color name="lightblue">#6680C3</color>
     <color name="gray">#808080</color>
     <color name="red">#FF0000</color>
+    <color name="lightgrey">#f7f7f7</color>
+
+
+    <color name="containerBackground">#FFFFFF</color>
 </resources>

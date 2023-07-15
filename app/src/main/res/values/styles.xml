@@ -25,6 +25,16 @@
         <item name="android:layout_marginEnd">10dp</item>
     </style>
 
+    <style name="ContainerComponentsNoticias">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:background">@color/containerBackground</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+
+
+    </style>
+
     <style name="edit_Text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -96,6 +106,15 @@
     <style name="StyleText">
         <item name="android:fontFamily">@font/public_sans_semibold</item>
         <item name="color">@color/black</item>
+    </style>
+
+    <style name="Texts_noticias">
+        <item name="android:fontFamily">@font/timesbd</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
     </style>
 
 

@@ -33,17 +33,6 @@
             app:layout_constraintBottom_toTopOf="@id/buttonAddImage" />
 
 
-        <ImageView
-            android:id="@+id/addnews"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:src="@drawable/bt_add"
-            app:layout_constraintTop_toBottomOf="@id/bt_notificar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp" />
-
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddImage"
             android:layout_width="wrap_content"
@@ -54,6 +43,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="100dp" />
 
+        <EditText
+            android:id="@+id/editTitulo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/texto_titulo"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/buttonAddImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            style="@style/edit_Text"
+            android:maxLength="999999999"
+            />
 
         <EditText
             android:id="@+id/editTextContent"
@@ -62,7 +66,8 @@
             android:hint="@string/botao_editar_texto"
             android:gravity="center"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/buttonAddImage"
+            android:inputType="textMultiLine"
+            app:layout_constraintTop_toBottomOf="@id/editTitulo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -81,6 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextContent"
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_notificar"
             android:layout_width="wrap_content"
@@ -91,6 +97,59 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bt_publicar"
             />
+
+
+        <Button
+            android:id="@+id/addnews"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/bt_add"
+            app:layout_constraintTop_toBottomOf="@id/bt_notificar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp" />
+
+
+        <RelativeLayout
+            android:id="@+id/containercomponents"
+            style="@style/ContainerComponentsNoticias"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addnews">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"
+                android:layout_alignParentTop="true" />
+
+            <TextView
+                android:id="@+id/textViewTitulo"
+                android:layout_width="270sp"
+                android:layout_height="100sp"
+                style="@style/Texts_noticias"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="130dp"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/publicImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:layout_toStartOf="@id/textViewTitulo" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"
+                android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

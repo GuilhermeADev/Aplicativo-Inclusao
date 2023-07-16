@@ -1,12 +1,12 @@
 package com.example.inclusao.Screens;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +50,8 @@ import com.google.firebase.firestore.ListenerRegistration;
  */
 public class ThirdFragment extends Fragment {
 
-    String nome="nam";
+    String nome="none";
+    BottomSheetDialog dialog;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -99,19 +101,39 @@ public class ThirdFragment extends Fragment {
 
     }
     EditText nomeSugest, descSugest;
+    Button but;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Remova essas linhas
+
+
 
 
         View view = inflater.inflate(R.layout.fragment_third, container, false);
         constr = view.findViewById(R.id.linear);
         constr2 = view.findViewById(R.id.linear2);
-        Button but = view.findViewById(R.id.submit);
-        nomeSugest=view.findViewById(R.id.nomeSugest);
-        descSugest=view.findViewById(R.id.descSugest);
+
         Verificacao();
         carregarAceitos();
+
+        //Configurando o BottomSheet
+        Button show = view.findViewById(R.id.show);
+
+        config();
+
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+
+            }
+        });
+
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,6 +395,15 @@ public class ThirdFragment extends Fragment {
             return currentUser.getUid();
         }
         return null;
+    }
+
+    public void config(){
+         dialog = new BottomSheetDialog(requireContext());
+        View view = getLayoutInflater().inflate(R.layout.fragment_bottom_sheet, null, false);
+        dialog.setContentView(view);
+        but = view.findViewById(R.id.submit);
+        nomeSugest=view.findViewById(R.id.nomeSugest);
+        descSugest=view.findViewById(R.id.descSugest);
     }
 
 

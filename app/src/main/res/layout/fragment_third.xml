@@ -1,90 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constr"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="Screens.ThirdFragment">
+        android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/containercomponents"
-            style="@style/ContainerComponents"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/nomeSugest"
-            style="@style/edit_Text"
-            android:hint="nome"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="53dp" />
-
-        <EditText
-            android:id="@+id/descSugest"
-            style="@style/edit_Text"
-            android:hint="descricao"
-            app:layout_constraintTop_toBottomOf="@id/nomeSugest"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:layout_height="150dp"
-            tools:layout_editor_absoluteX="53dp" />
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="300dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constr"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Submit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/containercomponents" />
+            tools:context="Screens.ThirdFragment">
 
-        <TextView
-            android:id="@+id/sugest"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Sugestões"
-            android:textAlignment="center"
-            android:textSize="20dp"
+            <TextView
+                android:id="@+id/sugest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Sugestões"
+                android:textAlignment="center"
+                android:textSize="20dp"
 
-            app:layout_constraintTop_toBottomOf="@+id/submit"
 
-            ></TextView>
 
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/sugest"
-            android:orientation="vertical" />
+                ></TextView>
 
-        <TextView
-            android:id="@+id/aceitos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Aceitos"
-            android:textAlignment="center"
-            android:textSize="20dp"
 
-            app:layout_constraintTop_toBottomOf="@+id/linear"
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/sugest"
+                android:orientation="vertical" />
 
-            ></TextView>
 
-        <LinearLayout
-            android:id="@+id/linear2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/aceitos"
-            android:orientation="vertical" />
+            <TextView
+                android:id="@+id/aceitos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Aceitos"
+                android:textAlignment="center"
+                android:textSize="20dp"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/linear"
+
+                ></TextView>
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/aceitos"
+                android:orientation="vertical" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/show"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Escrever sugestão"
+        android:backgroundTint="@color/blue1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="30dp"
+        android:background="@drawable/noborda" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

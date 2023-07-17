@@ -19,7 +19,7 @@
                 android:id="@+id/sugest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Sugestões"
+                android:text="Pedidos"
                 android:textAlignment="center"
                 android:textSize="20dp"
 
@@ -40,7 +40,7 @@
                 android:id="@+id/aceitos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Aceitos"
+                android:text="Sugestões"
                 android:textAlignment="center"
                 android:textSize="20dp"
 

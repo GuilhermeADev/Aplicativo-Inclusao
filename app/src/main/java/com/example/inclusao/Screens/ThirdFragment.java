@@ -1,11 +1,15 @@
 package com.example.inclusao.Screens;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,14 +112,11 @@ public class ThirdFragment extends Fragment {
 
         // Remova essas linhas
 
-
-
-
         View view = inflater.inflate(R.layout.fragment_third, container, false);
         constr = view.findViewById(R.id.linear);
         constr2 = view.findViewById(R.id.linear2);
 
-        Verificacao();
+        Verificacao(view);
         carregarAceitos();
 
         //Configurando o BottomSheet
@@ -126,7 +127,9 @@ public class ThirdFragment extends Fragment {
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //deixa transparente para que só possa se ver o background
                 dialog.show();
+
 
             }
         });
@@ -137,6 +140,8 @@ public class ThirdFragment extends Fragment {
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //fecha o dialog
+                dialog.dismiss();
                 //Ao apertar no botão de subimit
                 //Realtime Database
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -167,11 +172,12 @@ public class ThirdFragment extends Fragment {
         });
         return view;
     }
+    boolean isAdministrador=false;
 
-    private void Verificacao() {
+    private void Verificacao(View view) {
 
         FirebaseFirestore dbr = FirebaseFirestore.getInstance();
-        ;
+
         ListenerRegistration userListener;
 
         userListener = dbr.collection("Usuarios")
@@ -187,7 +193,12 @@ public class ThirdFragment extends Fragment {
 
                         if (isAdmin != null && isAdmin) {
                             carregarSugestoes();
+                            isAdministrador=true;
                         } else {
+                            // Tornando o textView escrito Aceitos invisivel
+                            TextView textView = view.findViewById(R.id.sugest);
+                            // Para tornar o TextView invisível (ainda ocupa espaço no layout)
+                            textView.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
@@ -260,7 +271,28 @@ public class ThirdFragment extends Fragment {
                     btt.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Toast.makeText(getContext(), "Sugestao recusada!", Toast.LENGTH_SHORT).show();
+
                             constr.removeView(cardView);
+
+                            //Exclui informações do nó atual no banco
+                            String userId = userSnapshot.getKey();
+                            DatabaseReference dado = referencia.child("Sugests").child(userId);
+                            dado.removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // A exclusão foi bem-sucedida
+                                            // Faça qualquer ação adicional necessária aqui
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Ocorreu um erro ao tentar excluir os dados
+                                            // Lide com o erro adequadamente
+                                        }
+                                    });
                         }
                     });
 
@@ -365,9 +397,12 @@ public class ThirdFragment extends Fragment {
                     //Configurando LinearLayout
                     LinearLayout containerLayoutt = new LinearLayout(requireContext());
                     containerLayoutt.setOrientation(LinearLayout.VERTICAL);
+                    event.addView(containerLayoutt);
 
+
+                    //Configurando TextView
                     TextView newTextVieww = new TextView(requireContext());
-                    newTextVieww.setText("Nome:"+ name+ "\n"+"Titulo: " + titulo + "\n" + "Descrição: " + descricao);
+                    newTextVieww.setText("Nome:" + name + "\n" + "Titulo: " + titulo + "\n" + "Descrição: " + descricao);
 
                     LinearLayout.LayoutParams textLayoutParamss = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -376,7 +411,53 @@ public class ThirdFragment extends Fragment {
 
                     containerLayoutt.addView(newTextVieww, textLayoutParamss);
 
-                    event.addView(containerLayoutt);
+                    //Se o usuário ativp é um admin
+                    if(isAdministrador){
+
+                        //Configurando Button
+                        Button button = new Button(requireContext());
+                        button.setText("Excluir");
+
+                        LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        buttonLayoutParams.gravity = Gravity.END; // Alinha o botão no canto direito
+
+                        containerLayoutt.addView(button, buttonLayoutParams);
+
+                        //Configurando botão de excluir
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(getContext(), "Sugestao excluida!", Toast.LENGTH_SHORT).show();
+
+                                constr.removeView(event);
+
+                                //Exclui informações do nó atual no banco
+                                String userId = userSnapshot.getKey();
+                                DatabaseReference dado = referencia.child("Aceitos").child(userId);
+                                dado.removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // A exclusão foi bem-sucedida
+                                                // Faça qualquer ação adicional necessária aqui
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Ocorreu um erro ao tentar excluir os dados
+                                                // Lide com o erro adequadamente
+                                            }
+                                        });
+                            }
+                        });
+                }
+
+
+                    //Adicionando botão no layout
                     constr2.addView(event);
 
 
@@ -398,12 +479,20 @@ public class ThirdFragment extends Fragment {
     }
 
     public void config(){
-         dialog = new BottomSheetDialog(requireContext());
+
+         dialog = new BottomSheetDialog(requireContext(),R.style.MyTransparentBottomSheetDialogTheme);
         View view = getLayoutInflater().inflate(R.layout.fragment_bottom_sheet, null, false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
         but = view.findViewById(R.id.submit);
         nomeSugest=view.findViewById(R.id.nomeSugest);
         descSugest=view.findViewById(R.id.descSugest);
+
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // Configurando animação de entrada do BottomSheetDialog
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
     }
 
 

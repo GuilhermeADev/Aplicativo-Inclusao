@@ -122,13 +122,6 @@
             app:layout_constraintStart_toEndOf="@id/addnews"
             app:layout_constraintTop_toBottomOf="@id/addnews">
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black"
-                android:layout_alignParentTop="true" />
-
             <TextView
                 android:id="@+id/textViewTitulo"
                 android:layout_width="270sp"

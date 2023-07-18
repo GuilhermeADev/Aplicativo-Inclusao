@@ -3,12 +3,14 @@ package com.example.inclusao.Screens;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -142,22 +144,39 @@ public class Noticias extends AppCompatActivity {
     }
 
     private void exibirNoticia(String titulo, String imageUrl) {
-        // Crie um novo RelativeLayout para a notícia
-        RelativeLayout relativeLayout = new RelativeLayout(this);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
+        LinearLayout container = findViewById(R.id.containercomponents);
+
+        // Crie uma View de linha preta
+        View linha = new View(this);
+        LinearLayout.LayoutParams linhaParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                2 // Altura desejada da linha (2dp)
+        );
+        linhaParams.setMargins(0, 8, 0, 8); // Margem superior e inferior da linha
+        linha.setLayoutParams(linhaParams);
+        linha.setBackgroundColor(Color.BLACK);
+
+        // Adicione a linha abaixo da última notícia (se houver)
+        if (container.getChildCount() > 0) {
+            container.addView(linha);
+        }
+
+        // Crie um novo LinearLayout para a notícia
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams.setMargins(0, 20, 0, 16); // Margem inferior entre as notícias
-        relativeLayout.setLayoutParams(layoutParams);
+        linearLayout.setLayoutParams(layoutParams);
 
         // Crie um novo ImageView para a imagem da notícia
         ImageView imageView = new ImageView(this);
-        RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
                 350, // Largura desejada da imagem
                 350  // Altura desejada da imagem
         );
-        imageParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         imageView.setLayoutParams(imageParams);
         Glide.with(this)
                 .load(imageUrl)
@@ -167,27 +186,25 @@ public class Noticias extends AppCompatActivity {
 
         // Crie um novo TextView para o título da notícia
         TextView textView = new TextView(this);
-        RelativeLayout.LayoutParams textParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        textParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        textParams.addRule(RelativeLayout.ALIGN_TOP, imageView.getId());
-        textParams.addRule(RelativeLayout.ALIGN_BOTTOM, imageView.getId());
-        textParams.setMargins(16, 0, 16, 0); // Margem esquerda e direita do texto
+        textParams.setMargins(50, 80, 0, 0); // Margem esquerda do texto
         textView.setLayoutParams(textParams);
         Typeface font = ResourcesCompat.getFont(this, R.font.timesbd);
         textView.setTypeface(font);
         textView.setText(titulo);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        textView.setMaxLines(2); // Define o número máximo de linhas do texto
+        textView.setEllipsize(TextUtils.TruncateAt.END); // Define o comportamento de truncamento
 
-        // Adicione a imagem e o título ao RelativeLayout da notícia
-        relativeLayout.addView(imageView);
-        relativeLayout.addView(textView);
+        // Adicione a imagem e o título ao LinearLayout da notícia
+        linearLayout.addView(imageView);
+        linearLayout.addView(textView);
 
-        // Adicione o RelativeLayout da notícia ao LinearLayout principal (containercomponents)
-        LinearLayout container = findViewById(R.id.containercomponents);
-        container.addView(relativeLayout);
+        // Adicione o LinearLayout da notícia ao LinearLayout principal (containercomponents)
+        container.addView(linearLayout);
     }
 
 

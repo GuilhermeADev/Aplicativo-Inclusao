@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="@font/aclonica"
+        android:textSize="30dp"
+        android:text="Sugestão" />
+
+    <!-- Dois TextViews para exibir o conteúdo dentro do BottomSheetDialog -->
+
+    <EditText
+        android:id="@+id/nomeSugest"
+        style="@style/edit_Text"
+        android:hint="Nome"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/descSugest"
+        style="@style/edit_Text"
+        android:hint="Descrição"
+        app:layout_constraintTop_toBottomOf="@id/nomeSugest"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:layout_height="150dp"
+        />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Enviar"
+        android:textSize="20dp"
+        android:layout_marginLeft="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descSugest" />
+
+</LinearLayout>

@@ -22,19 +22,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/nav_view"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/menuside"
-        app:itemIconTint="@color/orange"
-        app:itemTextColor="@color/black"/>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 
         android:layout_width="match_parent"
@@ -70,13 +57,22 @@
             android:layout_marginTop="64dp"
             android:layout_width="409dp"
             android:layout_height="675dp"
-
             app:defaultNavHost="true"
-
             app:navGraph="@navigation/my_nav" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/menuside"
+        app:itemIconTint="@color/orange"
+        app:itemTextColor="@color/black"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

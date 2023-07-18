@@ -1,6 +1,7 @@
 
 package com.example.inclusao.Screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -72,14 +73,25 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
-                Log.d("MyApp", "Item clicado. ID: " + id); // Log de depuração
-
-                Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
-
                 if (id == R.id.getout) {
-                    Log.d("MyApp", "Clicou em Sair!"); // Log de depuração
-                    Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Home.this, FormLogin.class);
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
                     return true;
+                }
+                if(id == R.id.share){
+                    // Criar o texto que você deseja compartilhar
+                    String textoParaCompartilhar = "Experimente este aplicativo incrível!";
+
+                    // Criar uma intenção de compartilhamento
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_TEXT, textoParaCompartilhar);
+
+                    // Iniciar o seletor de compartilhamento
+                    startActivity(Intent.createChooser(intent, "Compartilhar via"));
                 }
 
                 return true;

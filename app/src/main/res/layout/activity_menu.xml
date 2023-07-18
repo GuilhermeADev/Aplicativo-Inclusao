@@ -17,10 +17,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/backtool" />
-
-
+            android:background="@drawable/backtool"
+            app:menu="@menu/toolbar_menu" />
     </com.google.android.material.appbar.AppBarLayout>
+
 
 
 
@@ -30,6 +30,7 @@
         android:id="@+id/nav_view"
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
+        android:fitsSystemWindows="true"
         app:menu="@menu/menuside"
         app:itemIconTint="@color/orange"
         app:itemTextColor="@color/black"/>

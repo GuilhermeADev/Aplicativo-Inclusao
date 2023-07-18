@@ -2,6 +2,7 @@
 package com.example.inclusao.Screens;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,7 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
 
@@ -64,22 +66,26 @@ public class Home extends AppCompatActivity {
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-/*
-        nav_view = findViewById(R.id.nav_view);
+
+        nav_view =(NavigationView)findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
+                Log.d("MyApp", "Item clicado. ID: " + id); // Log de depuração
+
                 Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
 
                 if (id == R.id.getout) {
+                    Log.d("MyApp", "Clicou em Sair!"); // Log de depuração
                     Toast.makeText(Home.this, "Deu bom", Toast.LENGTH_SHORT).show();
                     return true;
                 }
 
-                return false;
+                return true;
             }
-        });*/
+        });
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -114,4 +120,9 @@ public class Home extends AppCompatActivity {
         nome_usuario = headerView.findViewById(R.id.text_nomeUs);
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
 }

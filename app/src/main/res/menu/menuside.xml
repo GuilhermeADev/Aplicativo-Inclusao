@@ -6,6 +6,7 @@
             android:icon="@drawable/person"
             android:title="InclusãoIbirité"></item>
         <item
+            android:id="@+id/share"
             android:icon="@drawable/share"
             android:title="Compartilhar"></item>
         <item

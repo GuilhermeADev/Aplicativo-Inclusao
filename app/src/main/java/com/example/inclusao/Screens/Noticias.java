@@ -142,23 +142,22 @@ public class Noticias extends AppCompatActivity {
     }
 
     private void exibirNoticia(String titulo, String imageUrl) {
-        // Obtenha uma referência ao RelativeLayout container
-        RelativeLayout container = findViewById(R.id.containercomponents);
-
-        // Crie um novo RelativeLayout para a nova notícia
+        // Crie um novo RelativeLayout para a notícia
         RelativeLayout relativeLayout = new RelativeLayout(this);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
-        layoutParams.addRule(RelativeLayout.BELOW, container.getChildCount());
+        layoutParams.setMargins(0, 20, 0, 16); // Margem inferior entre as notícias
         relativeLayout.setLayoutParams(layoutParams);
 
         // Crie um novo ImageView para a imagem da notícia
         ImageView imageView = new ImageView(this);
-        RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(350, 350);
+        RelativeLayout.LayoutParams imageParams = new RelativeLayout.LayoutParams(
+                350, // Largura desejada da imagem
+                350  // Altura desejada da imagem
+        );
         imageParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        imageParams.setMargins(0, 0, 0, 0);
         imageView.setLayoutParams(imageParams);
         Glide.with(this)
                 .load(imageUrl)
@@ -172,25 +171,24 @@ public class Noticias extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
-        textParams.addRule(RelativeLayout.END_OF, imageView.getId());
-        textParams.addRule(RelativeLayout.ALIGN_RIGHT);
-        textParams.setMargins(100, 40, 0, 0);
+        textParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        textParams.addRule(RelativeLayout.ALIGN_TOP, imageView.getId());
+        textParams.addRule(RelativeLayout.ALIGN_BOTTOM, imageView.getId());
+        textParams.setMargins(16, 0, 16, 0); // Margem esquerda e direita do texto
         textView.setLayoutParams(textParams);
-        textView.setMaxWidth(1000);
         Typeface font = ResourcesCompat.getFont(this, R.font.timesbd);
         textView.setTypeface(font);
         textView.setText(titulo);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textView.setGravity(Gravity.TOP);
 
-        // Adicione o ImageView e o TextView ao RelativeLayout da notícia
+        // Adicione a imagem e o título ao RelativeLayout da notícia
         relativeLayout.addView(imageView);
         relativeLayout.addView(textView);
 
-        // Adicione o RelativeLayout da notícia ao container principal
+        // Adicione o RelativeLayout da notícia ao LinearLayout principal (containercomponents)
+        LinearLayout container = findViewById(R.id.containercomponents);
         container.addView(relativeLayout);
     }
-
 
 
     @Override

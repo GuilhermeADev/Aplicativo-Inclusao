@@ -110,13 +110,18 @@
             android:layout_marginTop="10dp" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/containercomponents"
-            style="@style/ContainerComponentsNoticias"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toStartOf="@id/addnews"
+            app:layout_constraintStart_toEndOf="@id/addnews"
             app:layout_constraintTop_toBottomOf="@id/addnews">
+
 
             <View
                 android:layout_width="match_parent"
@@ -142,13 +147,9 @@
                 android:scaleType="centerCrop"
                 android:layout_toStartOf="@id/textViewTitulo" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black"
-                android:layout_alignParentBottom="true" />
 
-        </RelativeLayout>
+        </LinearLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

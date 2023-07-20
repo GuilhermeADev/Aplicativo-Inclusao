@@ -21,9 +21,11 @@
         android:theme="@style/Theme.Inclusao"
         tools:targetApi="31">
         <activity
+            android:name=".Screens.NoticiaCompletaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Screens.Noticias"
             android:exported="false" />
-
         <activity
             android:name=".Screens.Home"
             android:exported="false" />
@@ -39,7 +41,6 @@
         <activity
             android:name=".Screens.WelcomeScreen1"
             android:exported="false" />
-
         <activity
             android:name=".Screens.FormCadastro"
             android:exported="false" />

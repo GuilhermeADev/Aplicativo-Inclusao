@@ -1,6 +1,7 @@
 package com.example.inclusao.Screens;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -51,6 +52,8 @@ public class Noticias extends AppCompatActivity {
     private ImageView publicImage;
     private EditText editTitulo;
     private ListenerRegistration listenerRegistration;
+
+    private String conteudoNoticia;
 
     boolean isOptionsVisible = false;
 
@@ -136,12 +139,22 @@ public class Noticias extends AppCompatActivity {
 
                 // Exibir a notícia no aplicativo
                 exibirNoticia(titulo, imageUrl);
+
+                // Salvar a URL da última imagem no SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("imageUrl", imageUrl);
+                editor.apply();
             }
         }).addOnFailureListener(e -> {
             // Falha ao consultar as notícias no Firestore
             Toast.makeText(Noticias.this, "Falha ao carregar as notícias", Toast.LENGTH_SHORT).show();
         });
     }
+
+
+
+
 
     private void exibirNoticia(String titulo, String imageUrl) {
         LinearLayout container = findViewById(R.id.containercomponents);
@@ -205,6 +218,11 @@ public class Noticias extends AppCompatActivity {
 
         // Adicione o LinearLayout da notícia ao LinearLayout principal (containercomponents)
         container.addView(linearLayout);
+
+        linearLayout.setOnClickListener(v -> {
+            // Abra a NoticiaCompletaActivity e passe os dados da notícia como extras na Intent
+            abrirNoticiaCompleta(titulo, conteudoNoticia, imageUrl);
+        });
     }
 
 
@@ -215,6 +233,17 @@ public class Noticias extends AppCompatActivity {
             listenerRegistration.remove();
         }
     }
+
+    private void abrirNoticiaCompleta(String titulo, String conteudo, String imageUrl) {
+        Intent intent = new Intent(this, NoticiaCompletaActivity.class);
+        intent.putExtra("titulo", titulo);
+        intent.putExtra("conteudo", conteudo);
+        intent.putExtra("imageUrl", imageUrl);
+        startActivity(intent);
+    }
+
+
+
 
     private void iniciarcomponentes() {
 
@@ -235,6 +264,10 @@ public class Noticias extends AppCompatActivity {
             String titulo = editTitulo.getText().toString();
             TextView textViewTitulo = findViewById(R.id.textViewTitulo);
             textViewTitulo.setText(titulo);
+
+            // Obtenha o conteúdo da notícia do EditText
+            EditText editTextConteudo = findViewById(R.id.editTextContent);
+            conteudoNoticia = editTextConteudo.getText().toString();
 
             // Exibir a imagem selecionada ao lado
             Drawable selectedImage = imageViewSelectedImage.getDrawable();
@@ -348,6 +381,7 @@ public class Noticias extends AppCompatActivity {
         Map<String, Object> noticia = new HashMap<>();
         noticia.put("titulo", titulo);
         noticia.put("imageUrl", imageUrl);
+        noticia.put("conteudo", conteudoNoticia);
 
         db.collection("Noticias")
                 .add(noticia)

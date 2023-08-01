@@ -130,7 +130,15 @@ public class FormLogin extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser usuarioAtual = FirebaseAuth.getInstance().getCurrentUser();
 
+        if(usuarioAtual != null){
+            TelaPrincipal();
+        }
+    }
 
     private void TelaPrincipal(){
         Intent intent = new Intent(FormLogin.this, WelcomeScreen1.class);

@@ -145,16 +145,22 @@ public class FormLogin extends AppCompatActivity {
                 // Se não for o primeiro login, redirecionar diretamente para a tela principal (Home)
                 TelaPrincipal();
             }
+        } else {
+            // Se não houver usuário logado, permanecer na tela de login
         }
     }
 
+
     private void TelaBoasVindas() {
-        // Defina a flag de primeiro acesso como false
-        setFirstLogin(false);
+        // Defina a flag de primeiro acesso como false após mostrar a tela de boas-vindas
         Intent intent = new Intent(FormLogin.this, WelcomeScreen1.class);
         startActivity(intent);
+
+        // Defina a flag de primeiro acesso como false após a exibição da tela de boas-vindas
+        setFirstLogin(false);
         finish();
     }
+
 
     private void setFirstLogin(boolean isFirstLogin) {
         SharedPreferences sharedPref = getSharedPreferences("appPrefs", Context.MODE_PRIVATE);
@@ -170,10 +176,8 @@ public class FormLogin extends AppCompatActivity {
 
 
 
-
-
     private void TelaPrincipal(){
-        Intent intent = new Intent(FormLogin.this, WelcomeScreen1.class);
+        Intent intent = new Intent(FormLogin.this, Home.class);
         startActivity(intent);
         finish();
     }

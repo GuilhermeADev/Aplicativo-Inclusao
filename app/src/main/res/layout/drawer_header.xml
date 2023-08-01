@@ -2,24 +2,30 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/header"
+    android:background="@drawable/header1"
     android:layout_height="130dp">
 
-    <ImageView
+    <TextView
         android:layout_marginLeft="25dp"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/account" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:textSize="20dp"
+        android:text="Bem-Vindo"
+        android:fontFamily="@font/aclonica"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/text_nomeUs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="13dp"
         android:layout_gravity="center"
         android:textSize="20dp"
-        android:text="" />
+        android:text=""
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/aclonica"
+        android:textColor="@color/black"/>
 
 
 </LinearLayout>

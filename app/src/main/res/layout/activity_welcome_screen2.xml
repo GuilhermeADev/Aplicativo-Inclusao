@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         style="@style/StyleText"
         android:text="@string/Welcome_Screen2_text"
-        android:textSize="27sp"
+        android:textSize="21sp"
         android:padding="15dp"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"

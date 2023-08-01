@@ -32,16 +32,15 @@ import java.util.Map;
 
 public class FormCadastro extends AppCompatActivity {
 
-    private EditText edit_nome, edit_sobronme, edit_email, edit_senha, edit_phone;
+    private EditText edit_nome, edit_sobrenome, edit_email, edit_senha, edit_phone;
     private Button bt_cadastrar;
 
-    String[] mensagens = {"Preencha todos os campos", "Cadastro realizado com sucesso"};
+    private EditText editTextDeficiencia, editTextDeficiencia2;
+
+    String[] mensagens = {"Preencha todos os campos", "Digite um telefone válido (DDD + número)", "Cadastro realizado com sucesso"};
     String usuarioID;
     String rua, bairro, cidade, estado;
     RadioGroup radioGroupRespostas;
-
-    EditText editText;
-    EditText editText1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class FormCadastro extends AppCompatActivity {
         setContentView(R.layout.activity_form_cadastro);
         IniciarComponentes();
         Intent intent = getIntent();
-
 
         if (intent != null) {
             rua = intent.getStringExtra("rua");
@@ -62,17 +60,26 @@ public class FormCadastro extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nome = edit_nome.getText().toString();
-                String sobrenome = edit_sobronme.getText().toString();
+                String sobrenome = edit_sobrenome.getText().toString();
                 String email = edit_email.getText().toString();
                 String senha = edit_senha.getText().toString();
+                String telefone = edit_phone.getText().toString();
 
-                if (nome.isEmpty() || email.isEmpty() || sobrenome.isEmpty() || senha.isEmpty()) {
+                if (nome.isEmpty() || email.isEmpty() || sobrenome.isEmpty() || senha.isEmpty() || telefone.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(v, mensagens[0], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
+                } else if (!isValidPhone(telefone)) {
+                    Snackbar snackbar = Snackbar.make(v, mensagens[1], Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
                 } else {
-                    CadastrarUsuario(v, nome, sobrenome, email, senha);
+                    String deficiencia = editTextDeficiencia.getText().toString();
+                    String deficiencia2 = editTextDeficiencia2.getText().toString();
+
+                    CadastrarUsuario(v, nome, sobrenome, email, senha, deficiencia, deficiencia2, telefone);
                 }
             }
         });
@@ -81,40 +88,42 @@ public class FormCadastro extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radioButtonSim) {
-                    editText.setVisibility(View.VISIBLE);
-                    editText1.setVisibility(View.VISIBLE);
+                    editTextDeficiencia.setVisibility(View.VISIBLE);
+                    editTextDeficiencia2.setVisibility(View.VISIBLE);
                 } else {
-                    editText.setVisibility(View.GONE);
-                    editText1.setVisibility(View.GONE);
+                    editTextDeficiencia.setVisibility(View.GONE);
+                    editTextDeficiencia2.setVisibility(View.GONE);
                 }
             }
         });
-
-
-
     }
 
-    private void CadastrarUsuario(View v, String nome, String sobrenome, String email, String senha) {
+    private boolean isValidPhone(String phone) {
+        // Aqui você pode definir a lógica para validar o número de telefone, por exemplo,
+        // garantindo que tenha um DDD válido seguido pelo número, no formato DDD + número.
+        // Neste exemplo, estamos apenas verificando se o campo tem pelo menos 10 caracteres.
+        return phone.length() >= 10;
+    }
+
+    private void CadastrarUsuario(View v, String nome, String sobrenome, String email, String senha, String deficiencia, String deficiencia2, String telefone) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            SalvarDadosUsuario(nome, sobrenome, email, rua, bairro, cidade, estado);
+                            SalvarDadosUsuario(nome, sobrenome, email, rua, bairro, cidade, estado, deficiencia, deficiencia2, telefone);
 
-                            Snackbar snackbar = Snackbar.make(v, mensagens[1], Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(v, mensagens[2], Snackbar.LENGTH_SHORT);
                             snackbar.setBackgroundTint(Color.WHITE);
                             snackbar.setTextColor(Color.BLACK);
                             snackbar.show();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent( FormCadastro.this, FormLogin.class);
+                                    Intent intent = new Intent(FormCadastro.this, FormLogin.class);
                                     startActivity(intent);
                                 }
                             }, 2000);
-
-
                         } else {
                             String erro;
                             try {
@@ -137,8 +146,10 @@ public class FormCadastro extends AppCompatActivity {
                     }
                 });
     }
+
     private void SalvarDadosUsuario(String nome, String sobrenome, String email,
-                                    String rua, String bairro, String cidade, String estado) {
+                                    String rua, String bairro, String cidade, String estado,
+                                    String deficiencia, String deficiencia2, String telefone) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> usuarios = new HashMap<>();
@@ -149,6 +160,9 @@ public class FormCadastro extends AppCompatActivity {
         usuarios.put("Bairro", bairro);
         usuarios.put("Cidade", cidade);
         usuarios.put("Estado", estado);
+        usuarios.put("Deficiencia", deficiencia);
+        usuarios.put("Deficiencia2", deficiencia2);
+        usuarios.put("Telefone", telefone);
 
         usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -165,15 +179,16 @@ public class FormCadastro extends AppCompatActivity {
             }
         });
     }
+
     private void IniciarComponentes() {
         edit_nome = findViewById(R.id.nome);
-        edit_sobronme = findViewById(R.id.sobrenome);
+        edit_sobrenome = findViewById(R.id.sobrenome);
         edit_email = findViewById(R.id.email);
         edit_senha = findViewById(R.id.senha);
         edit_phone = findViewById(R.id.telefone);
         bt_cadastrar = findViewById(R.id.Button);
         radioGroupRespostas = findViewById(R.id.radioGroupRespostas);
-        editText = findViewById(R.id.editTextDeficiencia);
-        editText1 = findViewById(R.id.editTextDeficiencia2);
+        editTextDeficiencia = findViewById(R.id.editTextDeficiencia);
+        editTextDeficiencia2 = findViewById(R.id.editTextDeficiencia2);
     }
 }

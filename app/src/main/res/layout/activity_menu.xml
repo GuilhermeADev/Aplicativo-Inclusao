@@ -35,18 +35,22 @@
             android:layout_gravity="bottom"
             android:background="@color/white"
             app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="50dp">
+            app:fabCradleRoundedCornerRadius="50dp"
+            android:backgroundTint="@color/orange"
+            >
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/strongorange"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:menu="@menu/bottom_menu" />
+                app:menu="@menu/bottom_menu"
+                />
+
         </com.google.android.material.bottomappbar.BottomAppBar>
 
 
@@ -71,7 +75,7 @@
         app:headerLayout="@layout/drawer_header"
         android:fitsSystemWindows="true"
         app:menu="@menu/menuside"
-        app:itemIconTint="@color/orange"
+        app:itemIconTint="@color/strongorange"
         app:itemTextColor="@color/black"/>
 
 

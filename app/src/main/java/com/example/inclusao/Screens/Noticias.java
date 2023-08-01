@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -53,7 +55,7 @@ public class Noticias extends AppCompatActivity {
     private EditText editTitulo;
     private ListenerRegistration listenerRegistration;
 
-    private String conteudoNoticia;
+    private String conteudoNoticia = "";
 
     boolean isOptionsVisible = false;
 
@@ -135,10 +137,11 @@ public class Noticias extends AppCompatActivity {
             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                 // Obter os dados da notícia
                 String titulo = documentSnapshot.getString("titulo");
+                String conteudo = documentSnapshot.getString("conteudo");
                 String imageUrl = documentSnapshot.getString("imageUrl");
 
                 // Exibir a notícia no aplicativo
-                exibirNoticia(titulo, imageUrl);
+                exibirNoticia(titulo, conteudo, imageUrl);
 
                 // Salvar a URL da última imagem no SharedPreferences
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -155,8 +158,7 @@ public class Noticias extends AppCompatActivity {
 
 
 
-
-    private void exibirNoticia(String titulo, String imageUrl) {
+    private void exibirNoticia(String titulo, String conteudo, String imageUrl) {
         LinearLayout container = findViewById(R.id.containercomponents);
 
         // Crie uma View de linha preta
@@ -219,12 +221,13 @@ public class Noticias extends AppCompatActivity {
         // Adicione o LinearLayout da notícia ao LinearLayout principal (containercomponents)
         container.addView(linearLayout);
 
+
         linearLayout.setOnClickListener(v -> {
+
             // Abra a NoticiaCompletaActivity e passe os dados da notícia como extras na Intent
-            abrirNoticiaCompleta(titulo, conteudoNoticia, imageUrl);
+            abrirNoticiaCompleta(titulo, conteudo, imageUrl);
         });
     }
-
 
     @Override
     protected void onDestroy() {
@@ -241,9 +244,6 @@ public class Noticias extends AppCompatActivity {
         intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
     }
-
-
-
 
     private void iniciarcomponentes() {
 

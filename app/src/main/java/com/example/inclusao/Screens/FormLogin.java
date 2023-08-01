@@ -1,9 +1,8 @@
 package com.example.inclusao.Screens;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.inclusao.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -135,10 +137,40 @@ public class FormLogin extends AppCompatActivity {
         super.onStart();
         FirebaseUser usuarioAtual = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(usuarioAtual != null){
-            TelaPrincipal();
+        if (usuarioAtual != null) {
+            if (isFirstLogin()) {
+                // Se for o primeiro login, redirecionar para a tela de boas-vindas
+                TelaBoasVindas();
+            } else {
+                // Se não for o primeiro login, redirecionar diretamente para a tela principal (Home)
+                TelaPrincipal();
+            }
         }
     }
+
+    private void TelaBoasVindas() {
+        // Defina a flag de primeiro acesso como false
+        setFirstLogin(false);
+        Intent intent = new Intent(FormLogin.this, WelcomeScreen1.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setFirstLogin(boolean isFirstLogin) {
+        SharedPreferences sharedPref = getSharedPreferences("appPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("isFirstLogin", isFirstLogin);
+        editor.apply();
+    }
+
+    private boolean isFirstLogin() {
+        SharedPreferences sharedPref = getSharedPreferences("appPrefs", Context.MODE_PRIVATE);
+        return sharedPref.getBoolean("isFirstLogin", true);
+    }
+
+
+
+
 
     private void TelaPrincipal(){
         Intent intent = new Intent(FormLogin.this, WelcomeScreen1.class);

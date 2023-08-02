@@ -1,16 +1,30 @@
 package com.example.inclusao.Screens;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.inclusao.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,13 +74,113 @@ public class SecondFragment extends Fragment {
     }
 
     BottomSheetDialog dialog;
+    CalendarView calendarView;
+    Calendar calendar;
+    LinearLayout constr;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
 
+        calendarView=view.findViewById(R.id.calenderView);
+        calendar=Calendar.getInstance();
 
-        return view;
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
+                Toast.makeText(getContext(),"day "+ day+" mounth "+month+" year "+year ,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        constr=view.findViewById(R.id.lin);
+
+        int leftMargin = 00; // margem esquerda em pixels
+        int topMargin = 20; // margem superior em pixels
+        int rightMargin = 50; // margem direita em pixels
+        int bottomMargin = 0;
+
+            //Pega Strings
+            String titulo = "titulo";
+            String descricao = "desc";
+            String name = "name";
+
+            CardView cardView = new CardView(requireContext());
+
+            float cornerRadius = 16f;
+            cardView.setRadius(cornerRadius);
+
+            //Configurando CardView
+            ConstraintLayout.LayoutParams cardLayoutParams = new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+            );
+            cardLayoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
+            cardView.setLayoutParams(cardLayoutParams);
+
+            //Configurando LinearLayout vertical
+            LinearLayout containerLayout = new LinearLayout(requireContext());
+            containerLayout.setOrientation(LinearLayout.VERTICAL);
+
+            //Configurando LinearLayout horizontal
+            LinearLayout containerLayoutH = new LinearLayout(requireContext());
+            containerLayoutH.setOrientation(LinearLayout.HORIZONTAL);
+
+            // Adicione um ImageView
+            ImageView imageView = new ImageView(requireContext());
+            imageView.setImageResource(R.drawable.ball); // Substitua "imagem_exemplo" pelo ID da imagem em "res/drawable"
+            LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    500 // Altura da imagem em pixels, você pode ajustar conforme necessário
+            );
+            imageView.setLayoutParams(imageLayoutParams);
+            containerLayout.addView(imageView);
+
+            //Configurando textview
+            TextView newTextView = new TextView(requireContext());
+            newTextView.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+
+            LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+        textLayoutParams.setMargins(40, 0, 0, 0);
+
+
+        //Configurando data
+            TextView newTextdata = new TextView(requireContext());
+            newTextdata.setText("Sep"+ "\n" + "18 ");
+            //fonte personalizada
+//            Typeface customFont = Typeface.createFromAsset(requireContext().getAssets(), "fonts/times.ttf");
+//
+//            newTextdata.setTypeface(customFont);
+
+            // Ajustar o tamanho
+        newTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
+        newTextdata.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
+
+        newTextdata.setTypeface(null, Typeface.BOLD);
+
+        LinearLayout.LayoutParams textLayoutParamsdata = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+        textLayoutParamsdata.setMargins(40, 0, 0, 0);
+
+
+        //Colocando o texto dentro do container horizontal
+            containerLayoutH.addView(newTextdata, textLayoutParamsdata);
+            containerLayoutH.addView(newTextView, textLayoutParams);
+            //Colocando o container horizontal dentro do vertical
+            containerLayout.addView(containerLayoutH);
+
+
+
+            cardView.addView(containerLayout);
+            constr.addView(cardView);
+
+
+            return view;
     }
 
 

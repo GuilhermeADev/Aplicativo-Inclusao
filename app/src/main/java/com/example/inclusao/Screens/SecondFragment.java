@@ -92,6 +92,7 @@ public class SecondFragment extends Fragment {
             }
         });
 
+        //Pegando linearlayout
         constr=view.findViewById(R.id.lin);
 
         int leftMargin = 00; // margem esquerda em pixels
@@ -99,11 +100,13 @@ public class SecondFragment extends Fragment {
         int rightMargin = 50; // margem direita em pixels
         int bottomMargin = 0;
 
+        for(int cont=0; cont<2; cont++) {
             //Pega Strings
             String titulo = "titulo";
             String descricao = "desc";
             String name = "name";
 
+            //Cria carview
             CardView cardView = new CardView(requireContext());
 
             float cornerRadius = 16f;
@@ -115,69 +118,65 @@ public class SecondFragment extends Fragment {
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
             );
             cardLayoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-
             cardView.setLayoutParams(cardLayoutParams);
 
             //Configurando LinearLayout vertical
             LinearLayout containerLayout = new LinearLayout(requireContext());
             containerLayout.setOrientation(LinearLayout.VERTICAL);
 
-            //Configurando LinearLayout horizontal
-            LinearLayout containerLayoutH = new LinearLayout(requireContext());
-            containerLayoutH.setOrientation(LinearLayout.HORIZONTAL);
-
             // Adicione um ImageView
             ImageView imageView = new ImageView(requireContext());
             imageView.setImageResource(R.drawable.ball); // Substitua "imagem_exemplo" pelo ID da imagem em "res/drawable"
             LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    500 // Altura da imagem em pixels, você pode ajustar conforme necessário
+                    600 // Altura da imagem em pixels, você pode ajustar conforme necessário
             );
             imageView.setLayoutParams(imageLayoutParams);
             containerLayout.addView(imageView);
 
-            //Configurando textview
-            TextView newTextView = new TextView(requireContext());
-            newTextView.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
+            //Configurando LinearLayout horizontal
+            LinearLayout containerLayoutH = new LinearLayout(requireContext());
+            containerLayoutH.setOrientation(LinearLayout.HORIZONTAL);
+
+            //Configurando fonte
+            Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), "Aclonica.ttf");
+
+
+            //Configurando data
+            TextView newTextdata = new TextView(requireContext());
+            newTextdata.setText("Sep" + "\n" + " 18 ");
+            newTextdata.setTypeface(customFont);
+            newTextdata.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
             LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-        textLayoutParams.setMargins(40, 0, 0, 0);
+            textLayoutParams.setMargins(40, 0, 0, 0);
 
 
-        //Configurando data
-            TextView newTextdata = new TextView(requireContext());
-            newTextdata.setText("Sep"+ "\n" + "18 ");
-            //fonte personalizada
-//            Typeface customFont = Typeface.createFromAsset(requireContext().getAssets(), "fonts/times.ttf");
-//
-//            newTextdata.setTypeface(customFont);
-
-            // Ajustar o tamanho
-        newTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
-        newTextdata.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
-
-        newTextdata.setTypeface(null, Typeface.BOLD);
-
-        LinearLayout.LayoutParams textLayoutParamsdata = new LinearLayout.LayoutParams(
+            //Configurando textview
+            TextView newTextView = new TextView(requireContext());
+            newTextView.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit amet, consectetur adipiscing");
+            newTextView.setTypeface(customFont);
+            newTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Substitua 18 pelo tamanho desejado em "sp"
+            LinearLayout.LayoutParams textLayoutParamsdata = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-        textLayoutParamsdata.setMargins(40, 0, 0, 0);
+            textLayoutParamsdata.setMargins(40, 0, 0, 0);
 
 
-        //Colocando o texto dentro do container horizontal
+            //Colocando o texto dentro do container horizontal
             containerLayoutH.addView(newTextdata, textLayoutParamsdata);
             containerLayoutH.addView(newTextView, textLayoutParams);
             //Colocando o container horizontal dentro do vertical
             containerLayout.addView(containerLayoutH);
 
 
-
             cardView.addView(containerLayout);
             constr.addView(cardView);
+        }
 
 
             return view;

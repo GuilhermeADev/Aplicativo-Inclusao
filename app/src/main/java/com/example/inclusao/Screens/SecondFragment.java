@@ -2,12 +2,17 @@ package com.example.inclusao.Screens;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.provider.MediaStore;
@@ -38,6 +43,7 @@ import com.example.inclusao.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -109,6 +115,8 @@ public class SecondFragment extends Fragment {
     EditText nomeSugest;
     EditText descSugest;
 
+    Context context;
+
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     StorageReference imagesRef = storageRef.child("Eventos");
@@ -124,6 +132,7 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
+        context=requireContext();
 
         config();
         constr=view.findViewById(R.id.lin);
@@ -264,11 +273,11 @@ public class SecondFragment extends Fragment {
                 int bottomMargin = 0;
 
                 //pegando eventos do firebase e setando no linear layout
-                for (int cont = 0; cont < 2; cont++) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     //Pega Strings
-                    String titulo = "titulo";
-                    String descricao = "desc";
-                    String name = "name";
+                    String titulo = userSnapshot.child("Titulo").getValue(String.class);
+                    String descricao = userSnapshot.child("Descrição").getValue(String.class);
+                    String imagem = userSnapshot.child("Imagem").getValue(String.class);
 
                     //Cria carview
                     CardView cardView = new CardView(requireContext());
@@ -288,9 +297,16 @@ public class SecondFragment extends Fragment {
                     LinearLayout containerLayout = new LinearLayout(requireContext());
                     containerLayout.setOrientation(LinearLayout.VERTICAL);
 
+                    //Configurando LinearLayout vertical pro titulo e desc
+                    LinearLayout containerLayoutV = new LinearLayout(requireContext());
+                    containerLayoutV.setOrientation(LinearLayout.VERTICAL);
+
                     // Adicione um ImageView
                     ImageView imageView = new ImageView(requireContext());
-                    imageView.setImageResource(R.drawable.ball); // Substitua "imagem_exemplo" pelo ID da imagem em "res/drawable"
+                    Glide.with(context)
+                            .load(imagem)
+                            .into(imageView); // Substitua "imagem_exemplo" pelo ID da imagem em "res/drawable"
+
                     LinearLayout.LayoutParams imageLayout = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             600 // Altura da imagem em pixels, você pode ajustar conforme necessário
@@ -302,45 +318,141 @@ public class SecondFragment extends Fragment {
                     //Configurando LinearLayout horizontal
                     LinearLayout containerLayoutH = new LinearLayout(requireContext());
                     containerLayoutH.setOrientation(LinearLayout.HORIZONTAL);
+                    containerLayoutH.setGravity(Gravity.CENTER_VERTICAL); // Centraliza os componentes verticalmente
+
 
                     //Configurando fonte
                     Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), "Aclonica.ttf");
 
 
+                    //Configurando textview titulo
+                    TextView newTextView = new TextView(requireContext());
+                    newTextView.setGravity(Gravity.CENTER);
+
+                    newTextView.setText(titulo);
+                    newTextView.setTypeface(customFont);
+                    newTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20); // Substitua 18 pelo tamanho desejado em "sp"
+                    LinearLayout.LayoutParams textLayoutParamsdata = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    textLayoutParamsdata.setMargins(20, 10, 0, 0); // Removendo as margens superiores para centralizar o texto verticalmente
+
+                    newTextView.setLayoutParams(textLayoutParamsdata);
+
+                    //Configurando textview desc
+                    TextView newTextdesc = new TextView(requireContext());
+                    newTextdesc.setGravity(Gravity.LEFT);
+
+                    newTextdesc.setText(descricao);
+
+                    newTextdesc.setTypeface(customFont);
+                    newTextdesc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Substitua 18 pelo tamanho desejado em "sp"
+                    LinearLayout.LayoutParams textLayoutParamsdesc = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    textLayoutParamsdesc.setMargins(40, 0, 0, 0); // Removendo as margens superiores para centralizar o texto verticalmente
+
+                    newTextdesc.setLayoutParams(textLayoutParamsdesc);
+
+
+
+
+
                     //Configurando data
                     TextView newTextdata = new TextView(requireContext());
                     newTextdata.setText("Sep" + "\n" + " 18 ");
+
+
                     newTextdata.setTypeface(customFont);
                     newTextdata.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
                     LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    textLayoutParams.setMargins(40, 0, 0, 0);
+                    textLayoutParams.setMargins(20, 0, 0, 0);
 
 
-                    //Configurando textview
-                    TextView newTextView = new TextView(requireContext());
-                    newTextView.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit amet, consectetur adipiscing");
-                    newTextView.setTypeface(customFont);
-                    newTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Substitua 18 pelo tamanho desejado em "sp"
-                    LinearLayout.LayoutParams textLayoutParamsdata = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    textLayoutParamsdata.setMargins(40, 0, 0, 0);
+
+
+
+                    Button button;
+                    LinearLayout.LayoutParams buttonLayoutParams;
+                    //BOTÃO DE EXCLUIR
+                    if(true){
+
+                        //Configurando Button
+                        button = new Button(requireContext());
+                        button.setText("Excluir");
+
+                        buttonLayoutParams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        buttonLayoutParams.gravity = Gravity.END; // Alinha o botão no canto direito
+
+
+                        //Configurando botão de excluir
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                constr.removeView(cardView);
+
+                                //Exclui informações do nó atual no banco
+                                String userId = userSnapshot.getKey();
+                                DatabaseReference dado = referencia.child("Events").child(userId);
+                                dado.removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // A exclusão foi bem-sucedida
+                                                // Faça qualquer ação adicional necessária aqui
+                                                Toast.makeText(getContext(), "Sugestao excluida!", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Ocorreu um erro ao tentar excluir os dados
+                                                // Lide com o erro adequadamente
+                                            }
+                                        });
+                            }
+                        });
+                    }
+
+
+
+
+
+
+
+
+
+                    containerLayoutV.addView(newTextView);
+                    containerLayoutV.addView(newTextdesc);
 
 
                     //Colocando o texto dentro do container horizontal
                     containerLayoutH.addView(newTextdata, textLayoutParamsdata);
-                    containerLayoutH.addView(newTextView, textLayoutParams);
+                    containerLayoutH.addView(containerLayoutV, textLayoutParams);
                     //Colocando o container horizontal dentro do vertical
                     containerLayout.addView(containerLayoutH);
+                    //Colocando o botão excluir
+                    containerLayout.addView(button, buttonLayoutParams);
+
 
 
                     cardView.addView(containerLayout);
                     constr.addView(cardView);
                 }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Tratar erro na leitura dos dados
             }
         });
 

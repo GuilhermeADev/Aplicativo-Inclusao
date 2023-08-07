@@ -13,6 +13,9 @@
     <color name="red2">#ADD8E6</color>
     <color name="blue2">#B1D6FC</color>
     <color name="orange">#FFA500</color>
+    <color name="light_orange">#FFD180</color>
+    <color name="lighter_orange">#FFECB3</color>
+    <color name="lightest_orange">#FFF8E1</color>
     <color name="strongorange">#ff6e4a</color>
     <color name="lightoragens">#fdbf69</color>
     <color name="blue3">#0000FF</color>

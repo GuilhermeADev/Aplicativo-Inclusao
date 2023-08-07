@@ -67,4 +67,8 @@
     <string name="botao_adicionar_imagem">Adicionar Imagem</string>
     <string name="texto_titulo">Título da notícia</string>
 
+    <string name="text_titulo_curso">Digite o titulo do curso</string>
+    <string name="text_publicar_curso">Publicar curso</string>
+    <string name="text_link_curso">Link do curso</string>
+
 </resources>

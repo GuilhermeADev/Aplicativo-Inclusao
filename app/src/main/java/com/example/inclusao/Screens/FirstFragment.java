@@ -67,6 +67,15 @@ public class FirstFragment extends Fragment {
             }
         });
 
+        CardView card5 = view.findViewById(R.id.card5);
+        card5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Cursos.class);
+                startActivity(intent); // Adicione esta linha para iniciar a atividade
+            }
+        });
+
         return view;
     }
 }

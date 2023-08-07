@@ -21,6 +21,9 @@
         android:theme="@style/Theme.Inclusao"
         tools:targetApi="31">
         <activity
+            android:name=".Screens.Cursos"
+            android:exported="false" />
+        <activity
             android:name=".Screens.NoticiaCompletaActivity"
             android:exported="false" />
         <activity

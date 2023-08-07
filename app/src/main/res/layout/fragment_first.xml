@@ -172,7 +172,8 @@
 
 
             <androidx.cardview.widget.CardView
-                style="@style/background_menu_icons">
+                style="@style/background_menu_icons"
+                android:id="@+id/card5">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

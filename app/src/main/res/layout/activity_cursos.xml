@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.Cursos"
+    android:background="@drawable/background1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/tituloCurso"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/text_titulo_curso"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            style="@style/edit_Text"
+            android:maxLength="999999999"
+            />
+
+        <EditText
+            android:id="@+id/linkcurso"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/text_link_curso"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tituloCurso"
+            android:padding="16dp"
+            style="@style/edit_Text"
+            android:maxLength="999999999"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_publicar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Button2"
+            android:text="@string/text_publicar_curso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linkcurso"
+            />
+
+
+        <Button
+            android:id="@+id/addcurso"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/bt_add"
+            app:layout_constraintTop_toBottomOf="@id/bt_publicar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:id="@+id/cursosContainer"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintStart_toStartOf="@id/addcurso"
+        app:layout_constraintStart_toEndOf="@id/addcurso"
+        app:layout_constraintTop_toBottomOf="@id/addcurso"
+        >
+
+        <TextView
+            android:id="@+id/curso1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/addcurso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="40dp"
+            style="@style/StyleText"
+            android:textSize="30sp"
+            />
+
+        <WebView
+            android:id="@+id/videos"
+            android:layout_width="match_parent"
+            android:layout_height="250sp"
+            />
+
+    </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

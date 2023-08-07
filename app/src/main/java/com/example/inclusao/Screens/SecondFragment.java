@@ -2,6 +2,7 @@ package com.example.inclusao.Screens;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +44,7 @@ import androidx.fragment.app.Fragment;
 import com.example.inclusao.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,10 +55,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,6 +76,8 @@ public class SecondFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
+    boolean  isAdministrador=false;
+
     private String mParam2;
 
 
@@ -111,7 +118,7 @@ public class SecondFragment extends Fragment {
     Calendar calendar;
     LinearLayout constr;
 
-    Button but, sendImage ;
+    Button but, sendImage, sendDate ;
     EditText nomeSugest;
     EditText descSugest;
 
@@ -126,6 +133,8 @@ public class SecondFragment extends Fragment {
     private DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
 
     String IMAGEM;
+    int dia, mes, ano;
+
 
 
     @Override
@@ -133,6 +142,7 @@ public class SecondFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
         context=requireContext();
+        Verificacao(view);
 
         config();
         constr=view.findViewById(R.id.lin);
@@ -149,7 +159,7 @@ public class SecondFragment extends Fragment {
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri imageUri = result.getData().getData();
-                        Toast.makeText(requireContext(), imageUri.getLastPathSegment(), Toast.LENGTH_SHORT).show();
+
                         // Agora, envie a imagem para o Firebase Storage
                         StorageReference imageRef = imagesRef.child(imageUri.getLastPathSegment());
                         imageRef.putFile(imageUri)
@@ -190,6 +200,7 @@ public class SecondFragment extends Fragment {
 
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
+        //Ao clicar no botão de adicionar imagem
         sendImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +209,38 @@ public class SecondFragment extends Fragment {
                 imagePickerLauncher.launch(intent);
             }
         });
+
+        //Ao clicar no botão de adicionar data
+
+        sendDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Pega a data atual
+                final Calendar calendar = Calendar.getInstance();
+                int initialYear = calendar.get(Calendar.YEAR);
+                int initialMonth = calendar.get(Calendar.MONTH);
+                int initialDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Cria o DatePickerDialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        requireContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                dia=dayOfMonth;
+                                mes=month+1;
+                                ano=year;
+                                Toast.makeText(requireContext(), "Data selecionada: " + year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        initialYear, initialMonth, initialDay);
+
+                // Exibe o DatePickerDialog
+                datePickerDialog.show();
+
+            }
+        });
+
 
         //ao clicar no botão de submit
         but.setOnClickListener(new View.OnClickListener() {
@@ -216,11 +259,12 @@ public class SecondFragment extends Fragment {
                 dado.child("Descrição").setValue(descricao);
                 dado.child("Titulo").setValue(titulo);
                 dado.child("Imagem").setValue(IMAGEM);
+                dado.child("Dia").setValue(dia);
+                dado.child("Mês").setValue(mes);
+                dado.child("Ano").setValue(ano);
                 Toast.makeText(getContext(), "Sugestao gravada!", Toast.LENGTH_SHORT).show();
 
-
             }
-
     });
 
 
@@ -247,6 +291,7 @@ public class SecondFragment extends Fragment {
         dialog.setContentView(view);
         but = view.findViewById(R.id.submitevent);
         sendImage = view.findViewById(R.id.sendImage);
+        sendDate = view.findViewById(R.id.sendDate);
         nomeSugest=view.findViewById(R.id.nomeSugestevent);
         descSugest=view.findViewById(R.id.descSugestevent);
 
@@ -258,6 +303,23 @@ public class SecondFragment extends Fragment {
     }
 
     public void carregaDados(){
+
+
+        //HashMap para transformar o número do mês em seu respectivo nome
+        HashMap<String, String> mesesAbreviados = new HashMap<>();
+
+        mesesAbreviados.put("1", "Jan");
+        mesesAbreviados.put("2", "Fev");
+        mesesAbreviados.put("3", "Mar");
+        mesesAbreviados.put("4", "Abr");
+        mesesAbreviados.put("5", "Mai");
+        mesesAbreviados.put("6", "Jun");
+        mesesAbreviados.put("7", "Jul");
+        mesesAbreviados.put("8", "Ago");
+        mesesAbreviados.put("9", "Set");
+        mesesAbreviados.put("10", "Out");
+        mesesAbreviados.put("11", "Nov");
+        mesesAbreviados.put("12", "Dez");
         //Pegando linearlayout
         //HERE
 
@@ -278,12 +340,19 @@ public class SecondFragment extends Fragment {
                     String titulo = userSnapshot.child("Titulo").getValue(String.class);
                     String descricao = userSnapshot.child("Descrição").getValue(String.class);
                     String imagem = userSnapshot.child("Imagem").getValue(String.class);
+                    String dia =""+ userSnapshot.child("Dia").getValue(Long.class);
+                    String mes =""+ userSnapshot.child("Mês").getValue(Long.class);
 
                     //Cria carview
                     CardView cardView = new CardView(requireContext());
 
                     float cornerRadius = 16f;
+                    cardView.setCardElevation(0);
+
+
                     cardView.setRadius(cornerRadius);
+                    cardView.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
+
 
                     //Configurando CardView
                     ConstraintLayout.LayoutParams cardLayoutParams = new ConstraintLayout.LayoutParams(
@@ -300,6 +369,10 @@ public class SecondFragment extends Fragment {
                     //Configurando LinearLayout vertical pro titulo e desc
                     LinearLayout containerLayoutV = new LinearLayout(requireContext());
                     containerLayoutV.setOrientation(LinearLayout.VERTICAL);
+
+                    //Configurando LinearLayout vertical pra data
+                    LinearLayout containerLayoutdata = new LinearLayout(requireContext());
+                    containerLayoutdata.setOrientation(LinearLayout.VERTICAL);
 
                     // Adicione um ImageView
                     ImageView imageView = new ImageView(requireContext());
@@ -360,9 +433,11 @@ public class SecondFragment extends Fragment {
 
 
 
-                    //Configurando data
+                    //Configurando mes
                     TextView newTextdata = new TextView(requireContext());
-                    newTextdata.setText("Sep" + "\n" + " 18 ");
+
+
+                    newTextdata.setText(mesesAbreviados.get(mes));
 
 
                     newTextdata.setTypeface(customFont);
@@ -373,14 +448,30 @@ public class SecondFragment extends Fragment {
                     );
                     textLayoutParams.setMargins(20, 0, 0, 0);
 
+                    //Configurando dia
+                    TextView newTextdia = new TextView(requireContext());
+                    newTextdia.setText(dia);
+
+
+                    newTextdia.setTypeface(customFont);
+                    newTextdia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
+                    LinearLayout.LayoutParams textLayoutParamsdia = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    textLayoutParamsdia.setMargins(20, 0, 0, 0);
 
 
 
 
-                    Button button;
-                    LinearLayout.LayoutParams buttonLayoutParams;
+
+                    Button button= new Button(requireContext());;
+                    LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );;
                     //BOTÃO DE EXCLUIR
-                    if(true){
+                    if(isAdministrador){
 
                         //Configurando Button
                         button = new Button(requireContext());
@@ -424,25 +515,48 @@ public class SecondFragment extends Fragment {
                         });
                     }
 
-
-
-
-
-
-
-
-
+                    //Texto para o titulo e descrição
                     containerLayoutV.addView(newTextView);
                     containerLayoutV.addView(newTextdesc);
 
+                    //Texto para o mes e o dia
+                    containerLayoutdata.addView(newTextdata, textLayoutParams);
+                    containerLayoutdata.addView(newTextdia, textLayoutParamsdia);
+
 
                     //Colocando o texto dentro do container horizontal
-                    containerLayoutH.addView(newTextdata, textLayoutParamsdata);
+                    containerLayoutH.addView(containerLayoutdata, textLayoutParamsdata);
                     containerLayoutH.addView(containerLayoutV, textLayoutParams);
                     //Colocando o container horizontal dentro do vertical
                     containerLayout.addView(containerLayoutH);
                     //Colocando o botão excluir
+                    if(isAdministrador)
                     containerLayout.addView(button, buttonLayoutParams);
+
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Dentro do onClick do botão
+                            Intent intent = new Intent(requireContext(), Event.class);
+
+                            String titulo = userSnapshot.child("Titulo").getValue(String.class);
+                            String descricao = userSnapshot.child("Descrição").getValue(String.class);
+                            String imagem = userSnapshot.child("Imagem").getValue(String.class);
+                            String dia = ""+userSnapshot.child("Dia").getValue(Integer.class);
+                            String mes = ""+userSnapshot.child("Mês").getValue(Integer.class);
+                            String ano = ""+userSnapshot.child("Ano").getValue(Integer.class);
+
+                            intent.putExtra("tituloEvento", titulo);
+                            intent.putExtra("descricaoEvento", descricao);
+                            intent.putExtra("imagemEvento", imagem);
+                            intent.putExtra("diaEvento", dia);
+                            intent.putExtra("mesEvento", mes);
+                            intent.putExtra("anoEvento", ano);
+
+                            startActivity(intent);
+
+                        }
+                    });
 
 
 
@@ -456,6 +570,42 @@ public class SecondFragment extends Fragment {
             }
         });
 
+    }
+
+    private String getCurrentUserUid() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            return currentUser.getUid();
+        }
+        return null;
+    }
+    private void Verificacao(View view) {
+
+        FirebaseFirestore dbr = FirebaseFirestore.getInstance();
+
+        ListenerRegistration userListener;
+
+        userListener = dbr.collection("Usuarios")
+                .document(getCurrentUserUid())
+                .addSnapshotListener((snapshot, exception) -> {
+                    if (exception != null) {
+                        // Tratar o erro, se necessário
+                        return;
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        Boolean isAdmin = snapshot.getBoolean("isAdmin");
+
+                        if (isAdmin != null && isAdmin) {
+                            isAdministrador=true;
+                        } else {
+                            // Tornando o textView escrito Aceitos invisivel
+                            FloatingActionButton show = view.findViewById(R.id.fab);
+                            // Para tornar o TextView invisível (ainda ocupa espaço no layout)
+                            show.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                });
     }
 
 

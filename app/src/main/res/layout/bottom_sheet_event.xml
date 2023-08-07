@@ -45,6 +45,16 @@
         android:textSize="24dp"></Button>
 
     <Button
+        android:id="@+id/sendDate"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:text="Inserir data"
+        android:background="@drawable/noborda"
+        android:textSize="24dp"></Button>
+
+    <Button
         android:id="@+id/submitevent"
         android:layout_width="340dp"
         android:layout_height="wrap_content"

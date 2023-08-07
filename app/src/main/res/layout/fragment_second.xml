@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_menu"
     tools:context="Screens.SecondFragment">
 
 
@@ -20,10 +21,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="370dp"
+        android:background="@android:color/transparent"
         android:id="@+id/nested"
         app:layout_constraintTop_toBottomOf="@id/calenderView">
         <LinearLayout
             android:id="@+id/lin"
+            android:background="@android:color/transparent"
+
             android:layout_width="wrap_content"
             android:orientation="vertical"
             android:layout_height="wrap_content">

@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.inclusao.R;
@@ -226,6 +227,9 @@ public class ThirdFragment extends Fragment {
                     float cornerRadius = 16f;
                     cardView.setRadius(cornerRadius);
 
+                    int backgroundColor = ContextCompat.getColor(requireContext(), R.color.light_orange);
+                    cardView.setCardBackgroundColor(backgroundColor);
+
                     //Configurando CardView
                     ConstraintLayout.LayoutParams cardLayoutParams = new ConstraintLayout.LayoutParams(
                             900,
@@ -384,6 +388,8 @@ public class ThirdFragment extends Fragment {
 
                     float cornerRadius = 16f;
                     event.setRadius(cornerRadius);
+                    int backgroundColor = ContextCompat.getColor(requireContext(), R.color.lighter_orange);
+                    event.setCardBackgroundColor(backgroundColor);
 
                     //Configurando CardView
                     ConstraintLayout.LayoutParams cardLayoutParamss = new ConstraintLayout.LayoutParams(

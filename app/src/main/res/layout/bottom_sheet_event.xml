@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:fontFamily="@font/aclonica"
+
         android:textSize="30dp"
         android:text="Evento" />
 
@@ -34,25 +34,43 @@
         android:textColorHint="@color/black"
         android:layout_height="150dp"
         />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/sendDate"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:text="Data"
+            android:background="@drawable/noborda"
+            android:backgroundTint="@color/gray"
+            android:textSize="24dp"></Button>
     <Button
         android:id="@+id/sendImage"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="88dp"
-        android:text="Inserir imagem"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:text="Imagem"
         android:background="@drawable/noborda"
         android:textSize="24dp"></Button>
 
-    <Button
-        android:id="@+id/sendDate"
+
+    <ProgressBar
+        android:id="@+id/progressbarSheet"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
-        android:text="Inserir data"
-        android:background="@drawable/noborda"
-        android:textSize="24dp"></Button>
+        android:visibility="invisible"
+        android:outlineAmbientShadowColor="@color/black"
+        />
+    </LinearLayout>
+
+
+
 
     <Button
         android:id="@+id/submitevent"

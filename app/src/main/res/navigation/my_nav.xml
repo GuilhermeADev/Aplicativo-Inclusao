@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/secondFragment">
 
     <fragment
         android:id="@+id/firstFragment"
@@ -21,5 +21,34 @@
         android:name="com.example.inclusao.Screens.ThirdFragment"
         android:label="Sugestões"
         tools:layout="@layout/fragment_third" />
+    <fragment
+        android:id="@+id/fragment_event"
+        android:name="com.example.inclusao.fragment_event"
+        android:label="fragment_event"
+        tools:layout="@layout/fragment_event">
+        <argument
+            android:name="tituloEvento"
+            app:argType="string" />
+
+        <argument
+            android:name="descricaoEvento"
+            app:argType="string" />
+
+        <argument
+            android:name="imagemEvento"
+            app:argType="string" />
+
+        <argument
+            android:name="diaEvento"
+            app:argType="string" />
+
+        <argument
+            android:name="mesEvento"
+            app:argType="string" />
+
+        <argument
+            android:name="anoEvento"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

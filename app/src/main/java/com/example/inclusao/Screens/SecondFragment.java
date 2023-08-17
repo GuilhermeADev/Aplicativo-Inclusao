@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -30,6 +31,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.inclusao.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -76,7 +79,7 @@ public class SecondFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    boolean  isAdministrador=false;
+    boolean  isAdministrador=false, preenchido=false;
 
     private String mParam2;
 
@@ -134,7 +137,15 @@ public class SecondFragment extends Fragment {
 
     String IMAGEM;
     int dia, mes, ano;
+    ProgressBar progressBar;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.widget.Toolbar toolbar=requireActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Inclusão - Eventos");
+
+    }
 
 
     @Override
@@ -142,9 +153,25 @@ public class SecondFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
         context=requireContext();
+        preenchido=false;
         Verificacao(view);
 
+
+
+
         config();
+
+        //ProgressBar
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 3000);
+
+
+
+
         constr=view.findViewById(R.id.lin);
         // Adicione um ImageView
         ImageView image = new ImageView(requireContext());
@@ -166,6 +193,8 @@ public class SecondFragment extends Fragment {
                                 .addOnSuccessListener(taskSnapshot -> {
                                     // Upload concluído com sucesso
                                     Toast.makeText(requireContext(), "Upload bem-sucedido!", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(view.INVISIBLE);
+                                    preenchido=true;
 
                                     // Obtém o URL da imagem
                                     imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
@@ -207,6 +236,8 @@ public class SecondFragment extends Fragment {
                 //pega imagem da galeria
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 imagePickerLauncher.launch(intent);
+                progressBar.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -246,24 +277,28 @@ public class SecondFragment extends Fragment {
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //fecha o dialog
-                dialog.dismiss();
-                //Ao apertar no botão de subimit
                 String titulo = nomeSugest.getText().toString();
                 String descricao = descSugest.getText().toString();
-                String image = "";
+                if(preenchido) {
+                    if (!descricao.isEmpty() && !titulo.isEmpty()) {
+                        //fecha o dialog
+                        dialog.dismiss();
+                        //Ao apertar no botão de subimit
 
-                DatabaseReference dado = referencia.child("Events").child(titulo);
+                        String image = "";
 
-                // Salvar os dados no Realtime Database no nó sugestões
-                dado.child("Descrição").setValue(descricao);
-                dado.child("Titulo").setValue(titulo);
-                dado.child("Imagem").setValue(IMAGEM);
-                dado.child("Dia").setValue(dia);
-                dado.child("Mês").setValue(mes);
-                dado.child("Ano").setValue(ano);
-                Toast.makeText(getContext(), "Sugestao gravada!", Toast.LENGTH_SHORT).show();
+                        DatabaseReference dado = referencia.child("Events").child(titulo);
 
+                        // Salvar os dados no Realtime Database no nó sugestões
+                        dado.child("Descrição").setValue(descricao);
+                        dado.child("Titulo").setValue(titulo);
+                        dado.child("Imagem").setValue(IMAGEM);
+                        dado.child("Dia").setValue(dia);
+                        dado.child("Mês").setValue(mes);
+                        dado.child("Ano").setValue(ano);
+                        Toast.makeText(getContext(), "Sugestao gravada!", Toast.LENGTH_SHORT).show();
+                    } else  Toast.makeText(getContext(), "Preencha os campos!", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(getContext(), "Adicione uma imagem!", Toast.LENGTH_SHORT).show();
             }
     });
 
@@ -294,6 +329,8 @@ public class SecondFragment extends Fragment {
         sendDate = view.findViewById(R.id.sendDate);
         nomeSugest=view.findViewById(R.id.nomeSugestevent);
         descSugest=view.findViewById(R.id.descSugestevent);
+        progressBar=view.findViewById(R.id.progressbarSheet);
+
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -331,7 +368,7 @@ public class SecondFragment extends Fragment {
 
                 int leftMargin = 00; // margem esquerda em pixels
                 int topMargin = 20; // margem superior em pixels
-                int rightMargin = 50; // margem direita em pixels
+                int rightMargin = 0; // margem direita em pixels
                 int bottomMargin = 0;
 
                 //pegando eventos do firebase e setando no linear layout
@@ -537,7 +574,6 @@ public class SecondFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             // Dentro do onClick do botão
-                            Intent intent = new Intent(requireContext(), Event.class);
 
                             String titulo = userSnapshot.child("Titulo").getValue(String.class);
                             String descricao = userSnapshot.child("Descrição").getValue(String.class);
@@ -546,14 +582,21 @@ public class SecondFragment extends Fragment {
                             String mes = ""+userSnapshot.child("Mês").getValue(Integer.class);
                             String ano = ""+userSnapshot.child("Ano").getValue(Integer.class);
 
-                            intent.putExtra("tituloEvento", titulo);
-                            intent.putExtra("descricaoEvento", descricao);
-                            intent.putExtra("imagemEvento", imagem);
-                            intent.putExtra("diaEvento", dia);
-                            intent.putExtra("mesEvento", mes);
-                            intent.putExtra("anoEvento", ano);
+                            Bundle args = new Bundle();
+                            args.putString("tituloEvento", titulo);
+                            args.putString("descricaoEvento", descricao);
+                            args.putString("imagemEvento", imagem);
+                            args.putString("diaEvento", dia);
+                            args.putString("mesEvento", mes);
+                            args.putString("anoEvento", ano);
 
-                            startActivity(intent);
+                            Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
+
+                            // Use o NavController do Fragment hospedeiro
+                            if (hostFragment != null) {
+                                NavHostFragment.findNavController(hostFragment)
+                                        .navigate(R.id.fragment_event, args);
+                            }
 
                         }
                     });

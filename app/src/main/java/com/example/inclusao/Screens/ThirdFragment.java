@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -106,7 +107,15 @@ public class ThirdFragment extends Fragment {
 
     }
     EditText nomeSugest, descSugest;
+
     Button but;
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.widget.Toolbar toolbar=requireActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Inclusão - Dicas");
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -120,8 +129,10 @@ public class ThirdFragment extends Fragment {
         Verificacao(view);
         carregarAceitos();
 
+
+
         //Configurando o BottomSheet
-        Button show = view.findViewById(R.id.show);
+        FloatingActionButton show = view.findViewById(R.id.show);
 
         config();
 

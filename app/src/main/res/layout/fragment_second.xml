@@ -7,30 +7,24 @@
     android:background="@drawable/background_menu"
     tools:context="Screens.SecondFragment">
 
-
-
-
-
-    <CalendarView
-        android:id="@+id/calenderView"
-        android:layout_width="match_parent"
-        android:layout_height="285dp">
-
-    </CalendarView>
-
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="370dp"
-        android:background="@android:color/transparent"
         android:id="@+id/nested"
-        app:layout_constraintTop_toBottomOf="@id/calenderView">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/lin"
             android:background="@android:color/transparent"
-
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+            <CalendarView
+                android:id="@+id/calenderView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+            </CalendarView>
 
         </LinearLayout>
 
@@ -40,18 +34,12 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:layout_constraintBottom_toBottomOf="@id/nested"
         app:layout_constraintEnd_toEndOf="@id/nested"
         android:layout_marginRight="180dp"
         android:layout_marginBottom="30dp"
-
         android:src="@drawable/mais"
         app:backgroundTint="@color/gray"
         app:elevation="6dp" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

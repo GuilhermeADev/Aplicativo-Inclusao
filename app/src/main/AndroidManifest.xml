@@ -36,6 +36,9 @@
             android:name=".Screens.FormCadastro2"
             android:exported="false" />
         <activity
+            android:name=".Screens.Event"
+            android:exported="false" />
+        <activity
             android:name=".Screens.WelcomeScreen3"
             android:exported="false" />
         <activity

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 import android.widget.ViewFlipper;
 
 import androidx.cardview.widget.CardView;
@@ -129,9 +128,10 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Cursos.class);
-                startActivity(intent); // Adicione esta linha para iniciar a atividade
+                startActivity(intent);
             }
         });
+
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView); // Substitua R.id.bottomNavigationView pelo ID correto do seu BottomNavigationView
 

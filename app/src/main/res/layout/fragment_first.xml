@@ -35,6 +35,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/card1"
                 style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -64,7 +65,9 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card2" style="@style/background_menu_icons">
+                android:id="@+id/card312"
+                style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -90,7 +93,10 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView style="@style/background_menu_icons">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card2"
+                style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -102,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imageView72"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/icone_3_matricula"
+                        android:text="CABI"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -111,7 +117,7 @@
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
-                        app:srcCompat="@drawable/ic_matricula" />
+                        app:srcCompat="@drawable/icone_cabi_menu" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -130,6 +136,7 @@
 
             <androidx.cardview.widget.CardView
                 style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -160,6 +167,7 @@
             <androidx.cardview.widget.CardView
                 style="@style/background_menu_icons"
                 android:id="@+id/card5">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -190,6 +198,7 @@
 
             <androidx.cardview.widget.CardView
                 style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -234,6 +243,7 @@
             <androidx.cardview.widget.CardView
                 style="@style/background_menu_icons"
                 android:layout_marginLeft="10dp">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -266,6 +276,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/card8"
                 style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -294,6 +305,7 @@
 
             <androidx.cardview.widget.CardView
                 style="@style/background_menu_icons">
+                <include layout="@layout/background_layout"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -306,7 +318,7 @@
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="@string/icone_8_redes_sociais"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
                         android:textAlignment="center"/>
 
                     <ImageView

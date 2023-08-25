@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Texts_noticias"
+            android:fontFamily="@font/times"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/textViewTituloCompleto"
             app:layout_constraintEnd_toEndOf="@id/textViewTituloCompleto"

@@ -129,7 +129,6 @@
     </style>
     
     <style name="background_menu_icons">
-        <item name="cardBackgroundColor">@color/white1</item>
         <item name="android:layout_width">110dp</item>
         <item name="android:layout_height">110dp</item>
         <item name="android:layout_marginLeft">10dp</item>
@@ -143,6 +142,8 @@
         <item name="android:layout_marginEnd">10dp</item>
         <item name="layout_constraintVertical_bias">0.5</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="cardBackgroundColor">@color/transparent</item>
+
     </style>
 
 

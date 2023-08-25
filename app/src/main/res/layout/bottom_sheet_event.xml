@@ -24,7 +24,7 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintTop_toTopOf="parent" />
-55
+
     <EditText
         android:id="@+id/descSugestevent"
         style="@style/edit_Text"

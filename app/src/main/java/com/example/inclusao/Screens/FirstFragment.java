@@ -123,14 +123,6 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        CardView card5 = view.findViewById(R.id.card5);
-        card5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Cursos.class);
-                startActivity(intent);
-            }
-        });
 
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView); // Substitua R.id.bottomNavigationView pelo ID correto do seu BottomNavigationView

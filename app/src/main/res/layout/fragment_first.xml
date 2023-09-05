@@ -14,8 +14,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+
+
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/carousel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="220dp"/>
 
@@ -30,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewPager">
+            app:layout_constraintTop_toBottomOf="@+id/carousel">
 
 
             <androidx.cardview.widget.CardView
@@ -64,6 +69,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@id/card2"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 

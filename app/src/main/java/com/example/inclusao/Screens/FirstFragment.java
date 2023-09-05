@@ -11,22 +11,36 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewbinding.ViewBinding;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.inclusao.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.NotNull;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirstFragment extends Fragment {
 
-    private Handler handler = new Handler();
-    private final int INTERVAL = 3000; // Intervalo em milissegundos (3 segundos)
-    private int currentIndex = 0; // Índice inicial
-
-
-    private ViewFlipper viewFlipper;
     private String imageUrl; // URL da imagem do Firebase Storage
 
     public FirstFragment() {
@@ -44,21 +58,7 @@ public class FirstFragment extends Fragment {
         toolbar.setTitle("Inclusão - Menu");
 
     }
-    private int[] backgroundImages = {
-            R.drawable.adolescentes,
-            R.drawable.exit,
-    };
 
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            currentIndex = adapter.getNextIndex(currentIndex);
-            viewPager.setCurrentItem(currentIndex);
-            handler.postDelayed(this, INTERVAL);
-        }
-    };
-    BackgroundCarouselAdapter adapter;
-    ViewPager2 viewPager;
 
 
 
@@ -68,50 +68,93 @@ public class FirstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
 
-         viewPager =view.findViewById(R.id.viewPager);
-         adapter = new BackgroundCarouselAdapter(backgroundImages);
-        viewPager.setAdapter(adapter);
+        ImageCarousel carousel = view.findViewById(R.id.carousel);
+        List<CarouselItem> list = new ArrayList<>();
 
-        handler.postDelayed(runnable, INTERVAL);
+        carousel.setAutoPlay(true);
+        carousel.setAutoPlayDelay(3000);
 
-        adapter.setOnItemClickListener(new BackgroundCarouselAdapter.OnItemClickListener() {
+        // Carousel listener
+        carousel.setCarouselListener(new CarouselListener() {
             @Override
-            public void onItemClick(int position) {
-                // Executar ação com base na posição clicada
-                switch (position) {
-                    case 0:
-                        Toast.makeText(getContext(), "0!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        Toast.makeText(getContext(), "1!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(getContext(), "2!", Toast.LENGTH_SHORT).show();
-                        break;
-                    // ... adicione casos para as outras imagens
-                }
+            public void onBindViewHolder(@NonNull ViewBinding viewBinding, @NonNull CarouselItem carouselItem, int i) {
+
+            }
+
+            @Nullable
+            @Override
+            public ViewBinding onCreateViewHolder(@NotNull LayoutInflater layoutInflater, @NotNull ViewGroup parent) {
+
+                return null;
+            }
+
+
+
+            @Override
+            public void onLongClick(int position, @NotNull CarouselItem dataObject) {
+
+            }
+
+            @Override
+            public void onClick(int position, @NotNull CarouselItem carouselItem) {
+                Toast.makeText(getContext(), "Você clicou no item " + position, Toast.LENGTH_SHORT).show();
+
+
+
+
             }
         });
-        viewPager.setAdapter(adapter);
-
-        // Recuperar a URL da imagem de SharedPreferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", getActivity().MODE_PRIVATE);
-        imageUrl = sharedPreferences.getString("imageUrl", "");
-
-        // Se houver uma URL de imagem válida, exibir a imagem no ViewFlipper
-        if (!imageUrl.isEmpty()) {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-            Glide.with(this)
-                    .load(imageUrl)
-                    .centerCrop()
-                    .into(imageView);
-
-        }
 
 
-        CardView card1 = view.findViewById(R.id.card1);
+// Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
+        carousel.registerLifecycle(getLifecycle());
+
+         DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference dadosRef = referencia.child("Events");
+        dadosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //pegando eventos do firebase e setando no linear layout
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String imagem = userSnapshot.child("Imagem").getValue(String.class);
+                    list.add(
+                            new CarouselItem(
+                                    imagem
+                            )
+                    );
+
+                }
+                carousel.setData(list);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Tratar erro na leitura dos dados
+            }
+        });
+
+        //Imagens do firebase
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        CollectionReference eventsRef = db.collection("Noticias");
+//
+//        eventsRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                List<CarouselItem> list = new ArrayList<>();
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    String imageUrl = document.getString("ImageUrl");
+//                    if (imageUrl != null) {
+//                        list.add(new CarouselItem(imageUrl));
+//                    }
+//                }
+//                carousel.setData(list);
+//            }
+//        });
+
+
+
+            CardView card1 = view.findViewById(R.id.card1);
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +189,10 @@ public class FirstFragment extends Fragment {
                 bottomNavigationView.findViewById(R.id.thirdFragment).performClick(); // Substitua menu_item_id pelo ID do item de menu que você deseja clicar
             }
         });
+
+        CardView card= view.findViewById(R.id.card2);
+
+
 
 
         return view;

@@ -1,25 +1,18 @@
 package com.example.inclusao.Screens;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewbinding.ViewBinding;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.bumptech.glide.Glide;
 import com.example.inclusao.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -28,9 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
@@ -154,7 +144,7 @@ public class FirstFragment extends Fragment {
 
 
 
-            CardView card1 = view.findViewById(R.id.card1);
+        CardView card1 = view.findViewById(R.id.card1);
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +152,16 @@ public class FirstFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), Noticias.class);
                 // Adicione a URL da imagem como extra na Intent
                 intent.putExtra("imageUrl", imageUrl);
+                startActivity(intent);
+            }
+        });
+
+        CardView ic_sobrenos = view.findViewById(R.id.ic_sobrenos);
+
+        ic_sobrenos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WelcomeScreen1.class);
                 startActivity(intent);
             }
         });
@@ -191,6 +191,8 @@ public class FirstFragment extends Fragment {
         });
 
         CardView card= view.findViewById(R.id.card2);
+
+
 
 
 

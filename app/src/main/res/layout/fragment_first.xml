@@ -39,6 +39,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/ic_sobrenos"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 

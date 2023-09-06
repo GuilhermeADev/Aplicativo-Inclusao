@@ -337,7 +337,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
 
-                        app:srcCompat="@drawable/ic_redes_sociais" />
+                        app:srcCompat="@drawable/ic_fale_conosco" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.inclusao.R;
@@ -60,11 +62,17 @@ public class Redes_sociais extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iniciar_componentes();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        iniciar_componentes();
+
 
         logoinstagram.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +94,9 @@ public class Redes_sociais extends Fragment {
                 abrirYoutube();
             }
         });
-    }
 
+        // Resto do código
+    }
 
 
     @Override

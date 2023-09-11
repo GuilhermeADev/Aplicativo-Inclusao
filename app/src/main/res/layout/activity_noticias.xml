@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Screens.Noticias"
-    android:background="@drawable/background1">
+    android:background="@drawable/background_menu">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

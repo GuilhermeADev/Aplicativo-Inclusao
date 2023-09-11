@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.example.inclusao.R;
@@ -165,18 +166,92 @@ public class FirstFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        CardView card4 = view.findViewById(R.id.card4);
+
+        card4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
+
+                // Use o NavController do Fragment hospedeiro
+                if (hostFragment != null) {
+                    NavHostFragment.findNavController(hostFragment)
+                            .navigate(R.id.cabi);
+                }
+            }
+        });
+
+        CardView card5 = view.findViewById(R.id.card5);
+
+        card5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
+
+                // Use o NavController do Fragment hospedeiro
+                if (hostFragment != null) {
+                    NavHostFragment.findNavController(hostFragment)
+                            .navigate(R.id.salas_AEE);
+                }
+            }
+        });
+        CardView card3 = view.findViewById(R.id.card3);
+
+        card3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
+
+                // Use o NavController do Fragment hospedeiro
+                if (hostFragment != null) {
+                    NavHostFragment.findNavController(hostFragment)
+                            .navigate(R.id.projetos);
+                }
+            }
+        });
+
 
 
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView); // Substitua R.id.bottomNavigationView pelo ID correto do seu BottomNavigationView
+
+        CardView card7 = view.findViewById(R.id.card7);
+
+        card7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Trocar o ícone selecionado
+                bottomNavigationView.findViewById(R.id.secondFragment).performClick(); // Substitua menu_item_id pelo ID do item de menu que você deseja clicar
+            }
+        });
 
         CardView card2 = view.findViewById(R.id.card2);
 
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Trocar o ícone selecionado
-                bottomNavigationView.findViewById(R.id.secondFragment).performClick(); // Substitua menu_item_id pelo ID do item de menu que você deseja clicar
+                Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
+
+                // Use o NavController do Fragment hospedeiro
+                if (hostFragment != null) {
+                    NavHostFragment.findNavController(hostFragment)
+                            .navigate(R.id.redes_sociais);
+                }
+            }
+        });
+
+        CardView card9 = view.findViewById(R.id.card9);
+
+        card9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
+
+                // Use o NavController do Fragment hospedeiro
+                if (hostFragment != null) {
+                    NavHostFragment.findNavController(hostFragment)
+                            .navigate(R.id.faleConosco);
+                }
             }
         });
 

@@ -56,5 +56,29 @@
         android:name="com.example.inclusao.Screens.Redes_sociais"
         android:label="fragment_redes_sociais"
         tools:layout="@layout/fragment_redes_sociais" />
+    <fragment
+        android:id="@+id/cabi"
+        android:name="com.example.inclusao.Screens.Cabi"
+        android:label="fragment_cabi"
+        tools:layout="@layout/fragment_cabi" />
+    <fragment
+        android:id="@+id/projetos"
+        android:name="com.example.inclusao.Screens.Projetos"
+        android:label="fragment_projetos"
+        tools:layout="@layout/fragment_projetos" />
+    <fragment
+        android:id="@+id/profissionais_de_apoio"
+        android:name="com.example.inclusao.Screens.Profissionais_de_apoio"
+        android:label="fragment_profissionais_de_apoio"
+        tools:layout="@layout/fragment_profissionais_de_apoio" />
+    <fragment
+        android:id="@+id/salas_AEE"
+        android:name="com.example.inclusao.Screens.Salas_AEE"
+        android:label="fragment_salas__a_e_e"
+        tools:layout="@layout/fragment_salas__a_e_e" />
+    <fragment
+        android:id="@+id/faleConosco"
+        android:name="com.example.inclusao.Screens.FaleConosco"
+        android:label="FaleConosco" />
 
 </navigation>

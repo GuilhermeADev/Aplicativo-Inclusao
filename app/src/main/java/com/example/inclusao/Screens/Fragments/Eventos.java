@@ -1,4 +1,4 @@
-package com.example.inclusao.Screens;
+package com.example.inclusao.Screens.Fragments;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -38,7 +38,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -53,11 +52,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -65,41 +60,18 @@ import com.google.firebase.storage.StorageReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SecondFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SecondFragment extends Fragment {
+public class Eventos extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    boolean  isAdministrador=false, preenchido=false;
-
     private String mParam2;
-
-
-
-    public SecondFragment() {
+    private String mParam1;
+    public Eventos() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SecondFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SecondFragment newInstance(String param1, String param2) {
-        SecondFragment fragment = new SecondFragment();
+    public static Eventos newInstance(String param1, String param2) {
+        Eventos fragment = new Eventos();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -115,29 +87,33 @@ public class SecondFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    private BottomSheetDialog dialog;
+    private CalendarView calendarView;
+    private Calendar calendar;
+    private LinearLayout constr;
 
-    BottomSheetDialog dialog;
-    CalendarView calendarView;
-    Calendar calendar;
-    LinearLayout constr;
+    private Button bt_submit;
+    private Button sendImage;
+    private Button sendDate;
 
-    Button but, sendImage, sendDate ;
-    EditText nomeSugest;
-    EditText descSugest;
+    private EditText nomeSugest;
+    private EditText descSugest;
 
-    Context context;
+    private boolean isAdministrador = false;
+    private boolean preenchido = false;
+    private Context context;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
-    StorageReference imagesRef = storageRef.child("Eventos");
-
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
+    private StorageReference imagesRef = storageRef.child("Eventos");
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
-    private DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
 
-    String IMAGEM;
-    int dia, mes, ano;
-    ProgressBar progressBar;
+    private String linkImagem;
+    private int dia, mes, ano;
+    private ProgressBar progressBar;
+
 
     @Override
     public void onResume() {
@@ -151,13 +127,10 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_second, container, false);
+        View view = inflater.inflate(R.layout.fragment_eventos, container, false);
         context=requireContext();
         preenchido=false;
         Verificacao(view);
-
-
-
 
         config();
 
@@ -169,9 +142,6 @@ public class SecondFragment extends Fragment {
             }
         }, 3000);
 
-
-
-
         constr=view.findViewById(R.id.lin);
         // Adicione um ImageView
         ImageView image = new ImageView(requireContext());
@@ -181,49 +151,15 @@ public class SecondFragment extends Fragment {
         );
         image.setLayoutParams(imageLayoutParams);
 
-        //pega imagem
-        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Uri imageUri = result.getData().getData();
 
-                        // Agora, envie a imagem para o Firebase Storage
-                        StorageReference imageRef = imagesRef.child(imageUri.getLastPathSegment());
-                        imageRef.putFile(imageUri)
-                                .addOnSuccessListener(taskSnapshot -> {
-                                    // Upload concluído com sucesso
-                                    Toast.makeText(requireContext(), "Upload bem-sucedido!", Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(view.INVISIBLE);
-                                    preenchido=true;
-
-                                    // Obtém o URL da imagem
-                                    imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                                         IMAGEM = uri.toString();
-
-                                    }).addOnFailureListener(e -> {
-                                        // Ocorreu um erro ao obter o URL da imagem
-                                        Toast.makeText(requireContext(), "Erro ao obter URL da imagem: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    });
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Ocorreu um erro durante o upload
-                                    Toast.makeText(requireContext(), "Erro ao fazer upload: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
-
-                    }
-                });
+        FloatingActionButton FloatingButton = view.findViewById(R.id.floatingbutton);
 
 
-        FloatingActionButton show = view.findViewById(R.id.fab);
-
-
-        show.setOnClickListener(new View.OnClickListener() {
+        FloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //deixa transparente para que só possa se ver o background
                 dialog.show();
-
-
             }
         });
 
@@ -240,6 +176,39 @@ public class SecondFragment extends Fragment {
 
             }
         });
+
+
+        //pega imagem do BOTTON SHEET
+        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+
+                        // Agora, envie a imagem para o Firebase Storage
+                        StorageReference imageRef = imagesRef.child(imageUri.getLastPathSegment());
+                        imageRef.putFile(imageUri)
+                                .addOnSuccessListener(taskSnapshot -> {
+                                    // Upload concluído com sucesso
+                                    Toast.makeText(requireContext(), "Upload bem-sucedido!", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(view.INVISIBLE);
+                                    preenchido=true;
+
+                                    // Obtém o URL da imagem
+                                    imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                        linkImagem = uri.toString();
+
+                                    }).addOnFailureListener(e -> {
+                                        // Ocorreu um erro ao obter o URL da imagem
+                                        Toast.makeText(requireContext(), "Erro ao obter URL da imagem: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Ocorreu um erro durante o upload
+                                    Toast.makeText(requireContext(), "Erro ao fazer upload: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    }
+                });
+
 
         //Ao clicar no botão de adicionar data
 
@@ -274,7 +243,7 @@ public class SecondFragment extends Fragment {
 
 
         //ao clicar no botão de submit
-        but.setOnClickListener(new View.OnClickListener() {
+        bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String titulo = nomeSugest.getText().toString();
@@ -292,7 +261,7 @@ public class SecondFragment extends Fragment {
                         // Salvar os dados no Realtime Database no nó sugestões
                         dado.child("Descrição").setValue(descricao);
                         dado.child("Titulo").setValue(titulo);
-                        dado.child("Imagem").setValue(IMAGEM);
+                        dado.child("Imagem").setValue(linkImagem);
                         dado.child("Dia").setValue(dia);
                         dado.child("Mês").setValue(mes);
                         dado.child("Ano").setValue(ano);
@@ -302,7 +271,7 @@ public class SecondFragment extends Fragment {
             }
     });
 
-
+        //Calendario
         calendarView=view.findViewById(R.id.calenderView);
         calendar=Calendar.getInstance();
 
@@ -324,7 +293,7 @@ public class SecondFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_event, null, false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
-        but = view.findViewById(R.id.submitevent);
+        bt_submit = view.findViewById(R.id.submitevent);
         sendImage = view.findViewById(R.id.sendImage);
         sendDate = view.findViewById(R.id.sendDate);
         nomeSugest=view.findViewById(R.id.nomeSugestevent);
@@ -341,7 +310,6 @@ public class SecondFragment extends Fragment {
 
     public void carregaDados(){
 
-
         //HashMap para transformar o número do mês em seu respectivo nome
         HashMap<String, String> mesesAbreviados = new HashMap<>();
 
@@ -357,172 +325,134 @@ public class SecondFragment extends Fragment {
         mesesAbreviados.put("10", "Out");
         mesesAbreviados.put("11", "Nov");
         mesesAbreviados.put("12", "Dez");
-        //Pegando linearlayout
-        //HERE
+
+        //Carregando dados para o linearlayout
 
         DatabaseReference dadosRef = referencia.child("Events");
         dadosRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                int leftMargin = 00; // margem esquerda em pixels
-                int topMargin = 20; // margem superior em pixels
-                int rightMargin = 0; // margem direita em pixels
-                int bottomMargin = 0;
-
                 //pegando eventos do firebase e setando no linear layout
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     //Pega Strings
                     String titulo = userSnapshot.child("Titulo").getValue(String.class);
                     String descricao = userSnapshot.child("Descrição").getValue(String.class);
-                    String imagem = userSnapshot.child("Imagem").getValue(String.class);
+                    String linkImagem = userSnapshot.child("Imagem").getValue(String.class);
                     String dia =""+ userSnapshot.child("Dia").getValue(Long.class);
                     String mes =""+ userSnapshot.child("Mês").getValue(Long.class);
 
                     //Cria carview
                     CardView cardView = new CardView(requireContext());
-
-                    float cornerRadius = 16f;
                     cardView.setCardElevation(0);
-
-
-                    cardView.setRadius(cornerRadius);
+                    cardView.setRadius(16f);
                     cardView.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
-
 
                     //Configurando CardView
                     ConstraintLayout.LayoutParams cardLayoutParams = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_PARENT,
                             ConstraintLayout.LayoutParams.WRAP_CONTENT
                     );
-                    cardLayoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+                    cardLayoutParams.setMargins(0, 20, 0, 0);
                     cardView.setLayoutParams(cardLayoutParams);
 
                     //Configurando LinearLayout vertical
-                    LinearLayout containerLayout = new LinearLayout(requireContext());
-                    containerLayout.setOrientation(LinearLayout.VERTICAL);
+                    LinearLayout LayoutVerticalEvent = new LinearLayout(requireContext());
+                    LayoutVerticalEvent.setOrientation(LinearLayout.VERTICAL);
 
                     //Configurando LinearLayout vertical pro titulo e desc
-                    LinearLayout containerLayoutV = new LinearLayout(requireContext());
-                    containerLayoutV.setOrientation(LinearLayout.VERTICAL);
+                    LinearLayout LayoutVerticalTexto = new LinearLayout(requireContext());
+                    LayoutVerticalTexto.setOrientation(LinearLayout.VERTICAL);
 
                     //Configurando LinearLayout vertical pra data
-                    LinearLayout containerLayoutdata = new LinearLayout(requireContext());
-                    containerLayoutdata.setOrientation(LinearLayout.VERTICAL);
+                    LinearLayout LayoutVerticalData = new LinearLayout(requireContext());
+                    LayoutVerticalData.setOrientation(LinearLayout.VERTICAL);
 
                     // Adicione um ImageView
                     ImageView imageView = new ImageView(requireContext());
                     Glide.with(context)
-                            .load(imagem)
-                            .into(imageView); // Substitua "imagem_exemplo" pelo ID da imagem em "res/drawable"
+                            .load(linkImagem)
+                            .into(imageView); // carregando imagem no imageview
 
                     LinearLayout.LayoutParams imageLayout = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             600 // Altura da imagem em pixels, você pode ajustar conforme necessário
                     );
                     imageView.setLayoutParams(imageLayout);
-                    containerLayout.addView(imageView);
-
+                    LayoutVerticalEvent.addView(imageView);
 
                     //Configurando LinearLayout horizontal
-                    LinearLayout containerLayoutH = new LinearLayout(requireContext());
-                    containerLayoutH.setOrientation(LinearLayout.HORIZONTAL);
-                    containerLayoutH.setGravity(Gravity.CENTER_VERTICAL); // Centraliza os componentes verticalmente
-
+                    LinearLayout LayoutHorizontal = new LinearLayout(requireContext());
+                    LayoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+                    LayoutHorizontal.setGravity(Gravity.CENTER_VERTICAL); // Centraliza os componentes verticalmente
 
                     //Configurando fonte
                     Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), "Aclonica.ttf");
 
-
                     //Configurando textview titulo
-                    TextView newTextView = new TextView(requireContext());
-                    newTextView.setGravity(Gravity.CENTER);
-
-                    newTextView.setText(titulo);
-                    newTextView.setTypeface(customFont);
-                    newTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20); // Substitua 18 pelo tamanho desejado em "sp"
-                    LinearLayout.LayoutParams textLayoutParamsdata = new LinearLayout.LayoutParams(
+                    TextView text_titulo = new TextView(requireContext());
+                    text_titulo.setGravity(Gravity.CENTER);
+                    text_titulo.setText(titulo);
+                    text_titulo.setTypeface(customFont);
+                    text_titulo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20); // Substitua 18 pelo tamanho desejado em "sp"
+                    LinearLayout.LayoutParams textLayoutTitulo = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    textLayoutParamsdata.setMargins(20, 10, 0, 0); // Removendo as margens superiores para centralizar o texto verticalmente
-
-                    newTextView.setLayoutParams(textLayoutParamsdata);
+                    textLayoutTitulo.setMargins(20, 10, 0, 0); // Removendo as margens superiores para centralizar o texto verticalmente
+                    text_titulo.setLayoutParams(textLayoutTitulo);
 
                     //Configurando textview desc
-                    TextView newTextdesc = new TextView(requireContext());
-                    newTextdesc.setGravity(Gravity.LEFT);
-
-                    newTextdesc.setText(descricao);
-
-                    newTextdesc.setTypeface(customFont);
-                    newTextdesc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Substitua 18 pelo tamanho desejado em "sp"
+                    TextView text_Descricao = new TextView(requireContext());
+                    text_Descricao.setGravity(Gravity.LEFT);
+                    text_Descricao.setText(descricao);
+                    text_Descricao.setTypeface(customFont);
+                    text_Descricao.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14); // Substitua 18 pelo tamanho desejado em "sp"
                     LinearLayout.LayoutParams textLayoutParamsdesc = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
                     textLayoutParamsdesc.setMargins(40, 0, 0, 0); // Removendo as margens superiores para centralizar o texto verticalmente
-
-                    newTextdesc.setLayoutParams(textLayoutParamsdesc);
-
-
-
-
+                    text_Descricao.setLayoutParams(textLayoutParamsdesc);
 
                     //Configurando mes
-                    TextView newTextdata = new TextView(requireContext());
-
-
-                    newTextdata.setText(mesesAbreviados.get(mes));
-
-
-                    newTextdata.setTypeface(customFont);
-                    newTextdata.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
-                    LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
+                    TextView text_mes = new TextView(requireContext());
+                    text_mes.setText(mesesAbreviados.get(mes));
+                    text_mes.setTypeface(customFont);
+                    text_mes.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
+                    LinearLayout.LayoutParams textLayoutMes = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    textLayoutParams.setMargins(20, 0, 0, 0);
+                    textLayoutMes.setMargins(20, 0, 0, 0);
 
                     //Configurando dia
-                    TextView newTextdia = new TextView(requireContext());
-                    newTextdia.setText(dia);
-
-
-                    newTextdia.setTypeface(customFont);
-                    newTextdia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
-                    LinearLayout.LayoutParams textLayoutParamsdia = new LinearLayout.LayoutParams(
+                    TextView text_dia = new TextView(requireContext());
+                    text_dia.setText(dia);
+                    text_dia.setTypeface(customFont);
+                    text_dia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18); // Substitua 18 pelo tamanho desejado em "sp"
+                    LinearLayout.LayoutParams textLayoutDia = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    textLayoutParamsdia.setMargins(20, 0, 0, 0);
+                    textLayoutDia.setMargins(20, 0, 0, 0);
 
-
-
-
-
-                    Button button= new Button(requireContext());;
-                    LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
+                    //BOTÃO DE EXCLUIR
+                    Button but_excluir= new Button(requireContext());
+                    LinearLayout.LayoutParams butLayoutExcluir = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
-                    );;
-                    //BOTÃO DE EXCLUIR
+                    );
                     if(isAdministrador){
-
-                        //Configurando Button
-                        button = new Button(requireContext());
-                        button.setText("Excluir");
-
-                        buttonLayoutParams = new LinearLayout.LayoutParams(
+                        but_excluir = new Button(requireContext());
+                        but_excluir.setText("Excluir");
+                        butLayoutExcluir = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT
                         );
-                        buttonLayoutParams.gravity = Gravity.END; // Alinha o botão no canto direito
-
+                        butLayoutExcluir.gravity = Gravity.END; // Alinha o botão no canto direito
 
                         //Configurando botão de excluir
-                        button.setOnClickListener(new View.OnClickListener() {
+                        but_excluir.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
@@ -535,8 +465,6 @@ public class SecondFragment extends Fragment {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                // A exclusão foi bem-sucedida
-                                                // Faça qualquer ação adicional necessária aqui
                                                 Toast.makeText(getContext(), "Sugestao excluida!", Toast.LENGTH_SHORT).show();
 
                                             }
@@ -544,8 +472,6 @@ public class SecondFragment extends Fragment {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                // Ocorreu um erro ao tentar excluir os dados
-                                                // Lide com o erro adequadamente
                                             }
                                         });
                             }
@@ -553,31 +479,30 @@ public class SecondFragment extends Fragment {
                     }
 
                     //Texto para o titulo e descrição
-                    containerLayoutV.addView(newTextView);
-                    containerLayoutV.addView(newTextdesc);
+                    LayoutVerticalTexto.addView(text_titulo);
+                    LayoutVerticalTexto.addView(text_Descricao);
 
                     //Texto para o mes e o dia
-                    containerLayoutdata.addView(newTextdata, textLayoutParams);
-                    containerLayoutdata.addView(newTextdia, textLayoutParamsdia);
-
+                    LayoutVerticalData.addView(text_mes, textLayoutMes);
+                    LayoutVerticalData.addView(text_dia, textLayoutDia);
 
                     //Colocando o texto dentro do container horizontal
-                    containerLayoutH.addView(containerLayoutdata, textLayoutParamsdata);
-                    containerLayoutH.addView(containerLayoutV, textLayoutParams);
+                    LayoutHorizontal.addView(LayoutVerticalData, textLayoutTitulo);
+                    LayoutHorizontal.addView(LayoutVerticalTexto, textLayoutMes);
+
                     //Colocando o container horizontal dentro do vertical
-                    containerLayout.addView(containerLayoutH);
+                    LayoutVerticalEvent.addView(LayoutHorizontal);
                     //Colocando o botão excluir
                     if(isAdministrador)
-                    containerLayout.addView(button, buttonLayoutParams);
+                    LayoutVerticalEvent.addView(but_excluir, butLayoutExcluir);
 
                     cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // Dentro do onClick do botão
 
                             String titulo = userSnapshot.child("Titulo").getValue(String.class);
                             String descricao = userSnapshot.child("Descrição").getValue(String.class);
-                            String imagem = userSnapshot.child("Imagem").getValue(String.class);
+                            String linkImagem = userSnapshot.child("Imagem").getValue(String.class);
                             String dia = ""+userSnapshot.child("Dia").getValue(Integer.class);
                             String mes = ""+userSnapshot.child("Mês").getValue(Integer.class);
                             String ano = ""+userSnapshot.child("Ano").getValue(Integer.class);
@@ -585,7 +510,7 @@ public class SecondFragment extends Fragment {
                             Bundle args = new Bundle();
                             args.putString("tituloEvento", titulo);
                             args.putString("descricaoEvento", descricao);
-                            args.putString("imagemEvento", imagem);
+                            args.putString("imagemEvento", linkImagem);
                             args.putString("diaEvento", dia);
                             args.putString("mesEvento", mes);
                             args.putString("anoEvento", ano);
@@ -601,9 +526,7 @@ public class SecondFragment extends Fragment {
                         }
                     });
 
-
-
-                    cardView.addView(containerLayout);
+                    cardView.addView(LayoutVerticalEvent);
                     constr.addView(cardView);
                 }
             }
@@ -643,7 +566,7 @@ public class SecondFragment extends Fragment {
                             isAdministrador=true;
                         } else {
                             // Tornando o textView escrito Aceitos invisivel
-                            FloatingActionButton show = view.findViewById(R.id.fab);
+                            FloatingActionButton show = view.findViewById(R.id.floatingbutton);
                             // Para tornar o TextView invisível (ainda ocupa espaço no layout)
                             show.setVisibility(View.INVISIBLE);
                         }

@@ -17,7 +17,7 @@
     <!-- Dois TextViews para exibir o conteúdo dentro do BottomSheetDialog -->
 
     <EditText
-        android:id="@+id/nomeSugest"
+        android:id="@+id/txt_nomeSugest"
         style="@style/edit_Text"
         android:hint="Nome"
         android:layout_marginTop="10dp"
@@ -26,17 +26,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/descSugest"
+        android:id="@+id/txt_descSugest"
         style="@style/edit_Text"
         android:hint="Descrição"
-        app:layout_constraintTop_toBottomOf="@id/nomeSugest"
+        app:layout_constraintTop_toBottomOf="@id/txt_nomeSugest"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:layout_height="150dp"
         />
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/bt_submit"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -45,6 +45,6 @@
         android:layout_marginLeft="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descSugest" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_descSugest" />
 
 </LinearLayout>

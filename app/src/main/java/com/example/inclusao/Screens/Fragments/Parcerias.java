@@ -1,7 +1,5 @@
-package com.example.inclusao.Screens;
+package com.example.inclusao.Screens.Fragments;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,16 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.inclusao.R;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,18 +39,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ThirdFragment#newInstance} factory method to
+ * Use the {@link Parcerias#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ThirdFragment extends Fragment {
+public class Parcerias extends Fragment {
 
-    String nome="none";
+    String nomeUsuario ="none";
     BottomSheetDialog dialog;
 
 
@@ -71,7 +63,7 @@ public class ThirdFragment extends Fragment {
 
     private DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
 
-    public ThirdFragment() {
+    public Parcerias() {
         // Required empty public constructor
     }
 
@@ -85,8 +77,8 @@ public class ThirdFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     LinearLayout constr, constr2;
-    public static ThirdFragment newInstance(String param1, String param2) {
-        ThirdFragment fragment = new ThirdFragment();
+    public static Parcerias newInstance(String param1, String param2) {
+        Parcerias fragment = new Parcerias();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,8 +88,6 @@ public class ThirdFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
@@ -106,9 +96,9 @@ public class ThirdFragment extends Fragment {
         }
 
     }
-    EditText nomeSugest, descSugest;
+    EditText txt_nomeSugest, txt_descSugest;
 
-    Button but;
+    Button bt_submit;
     @Override
     public void onResume() {
         super.onResume();
@@ -119,63 +109,56 @@ public class ThirdFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_parcerias, container, false);
 
-        // Remova essas linhas
-
-        View view = inflater.inflate(R.layout.fragment_third, container, false);
-        constr = view.findViewById(R.id.linear);
-        constr2 = view.findViewById(R.id.linear2);
+        constr = view.findViewById(R.id.linear_pedidos);
+        constr2 = view.findViewById(R.id.linear_sugestoes);
 
         Verificacao(view);
         carregarAceitos();
 
-
-
         //Configurando o BottomSheet
-        FloatingActionButton show = view.findViewById(R.id.show);
+        FloatingActionButton FloatingBut = view.findViewById(R.id.floatingbut);
 
-        config();
+        configBottomSheet();
 
-        show.setOnClickListener(new View.OnClickListener() {
+        FloatingBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //deixa transparente para que só possa se ver o background
                 dialog.show();
-
-
             }
         });
 
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
 
-        but.setOnClickListener(new View.OnClickListener() {
+        bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //fecha o dialog
                 dialog.dismiss();
-                //Ao apertar no botão de subimit
-                //Realtime Database
+
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 String usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                 DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                         if (documentSnapshot != null && documentSnapshot.exists()) {
-                            nome = documentSnapshot.getString("Nome");
-                            // Faça o que precisa com o valor do campo "Nome"
-
+                            //Pegando nome do usuario para guardar os dados em seu nome
+                            nomeUsuario = documentSnapshot.getString("Nome");
 
                             // Salvar os dados no Realtime Database no nó sugestões
-                            DatabaseReference dado = referencia.child("Sugests").child(nome);
-                            dado.child("Descrição").setValue(descSugest.getText().toString());
-                            dado.child("Titulo").setValue(nomeSugest.getText().toString());
-                            dado.child("Nome").setValue(nome);
+                            DatabaseReference dado = referencia.child("Sugests").child(nomeUsuario);
+                            dado.child("Descrição").setValue(txt_descSugest.getText().toString());
+                            dado.child("Titulo").setValue(txt_nomeSugest.getText().toString());
+                            dado.child("Nome").setValue(nomeUsuario);
                             Toast.makeText(getContext(), "Sugestao gravada!", Toast.LENGTH_SHORT).show();
 
                         } else {
-                            // Trate o caso em que o documento não existe
+                            // Trate o caso em que o documento não existeDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                         }
                     }
                 });
@@ -186,34 +169,34 @@ public class ThirdFragment extends Fragment {
     }
     boolean isAdministrador=false;
 
-    private void Verificacao(View view) {
+    private void Verificacao(View view) { //Verificar se o usuário logado é o admin e tratar o necessario em relação à isso
 
         FirebaseFirestore dbr = FirebaseFirestore.getInstance();
 
         ListenerRegistration userListener;
 
         userListener = dbr.collection("Usuarios")
-                .document(getCurrentUserUid())
-                .addSnapshotListener((snapshot, exception) -> {
-                    if (exception != null) {
-                        // Tratar o erro, se necessário
-                        return;
-                    }
+            .document(getCurrentUserUid())
+            .addSnapshotListener((snapshot, exception) -> {
+                if (exception != null) {
+                    // Tratar o erro, se necessário
+                    return;
+                }
 
-                    if (snapshot != null && snapshot.exists()) {
-                        Boolean isAdmin = snapshot.getBoolean("isAdmin");
+                if (snapshot != null && snapshot.exists()) {
+                    Boolean isAdmin = snapshot.getBoolean("isAdmin");
 
-                        if (isAdmin != null && isAdmin) {
-                            carregarSugestoes();
-                            isAdministrador=true;
-                        } else {
-                            // Tornando o textView escrito Aceitos invisivel
-                            TextView textView = view.findViewById(R.id.sugest);
-                            // Para tornar o TextView invisível (ainda ocupa espaço no layout)
-                            textView.setVisibility(View.INVISIBLE);
-                        }
+                    if (isAdmin != null && isAdmin) {
+                        carregarSugestoes();
+                        isAdministrador=true;
+                    } else {
+                        // Tornando o textView escrito Aceitos invisivel
+                        TextView textView = view.findViewById(R.id.txt_pedidos);
+                        // Para tornar o TextView invisível (ainda ocupa espaço no layout)
+                        textView.setVisibility(View.INVISIBLE);
                     }
-                });
+                }
+            });
     }
     private void carregarSugestoes() {
 
@@ -375,19 +358,11 @@ public class ThirdFragment extends Fragment {
             }
         });
     }
-    private void carregarAceitos() {
+    private void carregarAceitos() { //Carregar todas sugestões aceitas do firebase
         DatabaseReference dadosRef = referencia.child("Aceitos");
         dadosRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                int leftMargin = 100; // margem esquerda em pixels
-                int topMargin = 20; // margem superior em pixels
-                int rightMargin = 50; // margem direita em pixels
-                int bottomMargin = 0;
-                // Limpar a view antes de carregar os dados
-
                 // Percorrer os filhos do nó "dados"
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     //Pega Strings
@@ -407,7 +382,7 @@ public class ThirdFragment extends Fragment {
                             900,
                             ConstraintLayout.LayoutParams.WRAP_CONTENT
                     );
-                    cardLayoutParamss.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+                    cardLayoutParamss.setMargins(100, 20, 50, 0);
 
                     event.setLayoutParams(cardLayoutParamss);
 
@@ -428,7 +403,7 @@ public class ThirdFragment extends Fragment {
 
                     containerLayoutt.addView(newTextVieww, textLayoutParamss);
 
-                    //Se o usuário ativp é um admin
+                    //Se o usuário ativo é um admin
                     if(isAdministrador){
 
                         //Configurando Button
@@ -447,7 +422,6 @@ public class ThirdFragment extends Fragment {
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(getContext(), "Sugestao excluida!", Toast.LENGTH_SHORT).show();
 
                                 constr.removeView(event);
 
@@ -458,8 +432,7 @@ public class ThirdFragment extends Fragment {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                // A exclusão foi bem-sucedida
-                                                // Faça qualquer ação adicional necessária aqui
+                                                Toast.makeText(getContext(), "Sugestao excluida!", Toast.LENGTH_SHORT).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -472,12 +445,8 @@ public class ThirdFragment extends Fragment {
                             }
                         });
                 }
-
-
                     //Adicionando botão no layout
                     constr2.addView(event);
-
-
                 }
             }
 
@@ -495,15 +464,15 @@ public class ThirdFragment extends Fragment {
         return null;
     }
 
-    public void config(){
+    public void configBottomSheet(){
 
-         dialog = new BottomSheetDialog(requireContext(),R.style.MyTransparentBottomSheetDialogTheme);
+        dialog = new BottomSheetDialog(requireContext(),R.style.MyTransparentBottomSheetDialogTheme);
         View view = getLayoutInflater().inflate(R.layout.fragment_bottom_sheet, null, false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
-        but = view.findViewById(R.id.submit);
-        nomeSugest=view.findViewById(R.id.nomeSugest);
-        descSugest=view.findViewById(R.id.descSugest);
+        bt_submit = view.findViewById(R.id.bt_submit);
+        txt_nomeSugest =view.findViewById(R.id.txt_nomeSugest);
+        txt_descSugest =view.findViewById(R.id.txt_descSugest);
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -511,6 +480,4 @@ public class ThirdFragment extends Fragment {
         // Configurando animação de entrada do BottomSheetDialog
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
     }
-
-
 }

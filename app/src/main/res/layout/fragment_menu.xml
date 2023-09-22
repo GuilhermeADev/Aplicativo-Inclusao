@@ -50,7 +50,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView50"
+                        android:layout_below="@id/im_sobrenos"
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="@string/icone_3_sobre_nós"
@@ -58,7 +58,7 @@
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/imageView50"
+                        android:id="@+id/im_sobrenos"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -70,7 +70,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card2"
+                android:id="@+id/ic_redessociais"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -81,7 +81,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView55"
+                        android:layout_below="@id/im_redessociais"
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="@string/icone_8_redes_sociais"
@@ -89,7 +89,7 @@
                         android:textAlignment="center"/>
 
                     <ImageView
-                        android:id="@+id/imageView55"
+                        android:id="@+id/im_redessociais"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -102,7 +102,7 @@
 
             <androidx.cardview.widget.CardView
                 style="@style/background_menu_icons"
-                android:id="@+id/card3"
+                android:id="@+id/ic_projetos"
                 android:layout_marginLeft="10dp">
                 <include layout="@layout/background_layout"/>
 
@@ -113,7 +113,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView53"
+                        android:layout_below="@id/im_projetos"
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="@string/icone_6_projetos"
@@ -122,7 +122,7 @@
                         android:gravity="center"/>
 
                     <ImageView
-                        android:id="@+id/imageView53"
+                        android:id="@+id/im_projetos"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -147,7 +147,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card4"
+                android:id="@+id/ic_cabi"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -159,13 +159,13 @@
                         style="@style/StyleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView72"
+                        android:layout_below="@id/im_cabi"
                         android:layout_centerHorizontal="true"
                         android:text="CABI"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/imageView72"
+                        android:id="@+id/im_cabi"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -175,7 +175,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card5"
+                android:id="@+id/ic_salasaee"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -186,7 +186,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView52"
+                        android:layout_below="@id/im_salasaee"
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="Salas de AEE"
@@ -194,7 +194,7 @@
                         android:textSize="11sp" />
 
                     <ImageView
-                        android:id="@+id/imageView52"
+                        android:id="@+id/im_salasaee"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -204,7 +204,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card1"
+                android:id="@+id/ic_noticias"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -216,14 +216,14 @@
                         style="@style/StyleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView99"
+                        android:layout_below="@id/im_noticias"
                         android:layout_centerHorizontal="true"
                         android:text="@string/icone_1_Noticias"
                         android:textAlignment="center"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/imageView99"
+                        android:id="@+id/im_noticias"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -253,7 +253,7 @@
             app:cardBackgroundColor="@color/transparent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card7"
+                android:id="@+id/ic_eventos"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -265,14 +265,14 @@
                         style="@style/StyleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView35"
+                        android:layout_below="@id/im_eventos"
                         android:layout_centerHorizontal="true"
                         android:text="@string/icone_2_eventos"
                         android:textAlignment="center"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/imageView35"
+                        android:id="@+id/im_eventos"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -284,7 +284,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card8"
+                android:id="@+id/ic_parcerias"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -295,7 +295,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView54"
+                        android:layout_below="@id/im_parcerias"
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="Parcerias"
@@ -303,7 +303,7 @@
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/imageView54"
+                        android:id="@+id/im_parcerias"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"
@@ -315,7 +315,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card9"
+                android:id="@+id/ic_faleconosco"
                 style="@style/background_menu_icons">
                 <include layout="@layout/background_layout"/>
 
@@ -326,7 +326,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView100"
+                        android:layout_below="@id/im_faleconosco"
                         android:layout_centerHorizontal="true"
                         style="@style/StyleText"
                         android:text="Fale conosco"
@@ -334,7 +334,7 @@
                         android:textAlignment="center"/>
 
                     <ImageView
-                        android:id="@+id/imageView100"
+                        android:id="@+id/im_faleconosco"
                         android:layout_width="64dp"
                         android:layout_height="52dp"
                         android:layout_centerHorizontal="true"

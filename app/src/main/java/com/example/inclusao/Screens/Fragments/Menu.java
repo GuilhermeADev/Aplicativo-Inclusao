@@ -1,4 +1,4 @@
-package com.example.inclusao.Screens;
+package com.example.inclusao.Screens.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.example.inclusao.R;
+import com.example.inclusao.Screens.Noticias;
+import com.example.inclusao.Screens.WelcomeScreen1;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,16 +32,16 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirstFragment extends Fragment {
+public class Menu extends Fragment {
 
     private String imageUrl; // URL da imagem do Firebase Storage
 
-    public FirstFragment() {
+    public Menu() {
         // Required empty public constructor
     }
 
-    public static FirstFragment newInstance() {
-        return new FirstFragment();
+    public static Menu newInstance() {
+        return new Menu();
     }
 
     @Override
@@ -50,22 +52,17 @@ public class FirstFragment extends Fragment {
 
     }
 
-
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
+        //Configuração do carousel de imagens
         ImageCarousel carousel = view.findViewById(R.id.carousel);
         List<CarouselItem> list = new ArrayList<>();
 
         carousel.setAutoPlay(true);
         carousel.setAutoPlayDelay(3000);
 
-        // Carousel listener
         carousel.setCarouselListener(new CarouselListener() {
             @Override
             public void onBindViewHolder(@NonNull ViewBinding viewBinding, @NonNull CarouselItem carouselItem, int i) {
@@ -89,18 +86,12 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(int position, @NotNull CarouselItem carouselItem) {
                 Toast.makeText(getContext(), "Você clicou no item " + position, Toast.LENGTH_SHORT).show();
-
-
-
-
             }
         });
-
-
-// Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
         carousel.registerLifecycle(getLifecycle());
 
-         DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
+        //Pegando dados do banco para colocar no carousel
+        DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
 
         DatabaseReference dadosRef = referencia.child("Events");
         dadosRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -144,9 +135,10 @@ public class FirstFragment extends Fragment {
 //        });
 
 
+        //Ações dos cardviews
 
-        CardView card1 = view.findViewById(R.id.card1);
-        card1.setOnClickListener(new View.OnClickListener() {
+        CardView ic_Noticias = view.findViewById(R.id.ic_noticias);
+        ic_Noticias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Na atividade atual
@@ -157,18 +149,18 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        CardView ic_sobrenos = view.findViewById(R.id.ic_sobrenos);
+        CardView ic_Sobrenos = view.findViewById(R.id.ic_sobrenos);
 
-        ic_sobrenos.setOnClickListener(new View.OnClickListener() {
+        ic_Sobrenos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), WelcomeScreen1.class);
                 startActivity(intent);
             }
         });
-        CardView card4 = view.findViewById(R.id.card4);
+        CardView ic_Cabi = view.findViewById(R.id.ic_cabi);
 
-        card4.setOnClickListener(new View.OnClickListener() {
+        ic_Cabi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
@@ -181,9 +173,9 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        CardView card5 = view.findViewById(R.id.card5);
+        CardView ic_SalasAEE = view.findViewById(R.id.ic_salasaee);
 
-        card5.setOnClickListener(new View.OnClickListener() {
+        ic_SalasAEE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
@@ -195,9 +187,9 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
-        CardView card3 = view.findViewById(R.id.card3);
+        CardView ic_Projetos = view.findViewById(R.id.ic_projetos);
 
-        card3.setOnClickListener(new View.OnClickListener() {
+        ic_Projetos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
@@ -210,24 +202,9 @@ public class FirstFragment extends Fragment {
             }
         });
 
+        CardView ic_RedesSociais = view.findViewById(R.id.ic_redessociais);
 
-
-
-        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView); // Substitua R.id.bottomNavigationView pelo ID correto do seu BottomNavigationView
-
-        CardView card7 = view.findViewById(R.id.card7);
-
-        card7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Trocar o ícone selecionado
-                bottomNavigationView.findViewById(R.id.secondFragment).performClick(); // Substitua menu_item_id pelo ID do item de menu que você deseja clicar
-            }
-        });
-
-        CardView card2 = view.findViewById(R.id.card2);
-
-        card2.setOnClickListener(new View.OnClickListener() {
+        ic_RedesSociais.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
@@ -240,9 +217,9 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        CardView card9 = view.findViewById(R.id.card9);
+        CardView ic_FaleConosco = view.findViewById(R.id.ic_faleconosco);
 
-        card9.setOnClickListener(new View.OnClickListener() {
+        ic_FaleConosco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment hostFragment = getParentFragment(); // ou use getActivity() para obter o Fragment da atividade
@@ -255,22 +232,28 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        CardView card8= view.findViewById(R.id.card8);
+        //Cards que ativaram um item do bottomnabigationsview
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView); // Substitua R.id.bottomNavigationView pelo ID correto do seu BottomNavigationView
 
-        card8.setOnClickListener(new View.OnClickListener() {
+        CardView ic_Eventos = view.findViewById(R.id.ic_eventos);
+
+        ic_Eventos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Trocar o ícone selecionado
+                bottomNavigationView.findViewById(R.id.secondFragment).performClick(); // Substitua menu_item_id pelo ID do item de menu que você deseja clicar
+            }
+        });
+
+        CardView ic_Parcerias = view.findViewById(R.id.ic_parcerias);
+
+        ic_Parcerias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Trocar o ícone selecionado
                 bottomNavigationView.findViewById(R.id.thirdFragment).performClick(); // Substitua menu_item_id pelo ID do item de menu que você deseja clicar
             }
         });
-
-        CardView card= view.findViewById(R.id.card2);
-
-
-
-
-
 
         return view;
     }

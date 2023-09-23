@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:elevation="10dp"
-    tools:context=".Screens.Home"
+    tools:context=".Screens.Activitys.Home"
 
     android:background="@drawable/background_menu">
 

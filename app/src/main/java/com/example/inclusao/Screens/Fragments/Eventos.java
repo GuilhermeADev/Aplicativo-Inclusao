@@ -62,30 +62,17 @@ import java.util.HashMap;
 
 public class Eventos extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam2;
-    private String mParam1;
-    public Eventos() {
-        // Required empty public constructor
-    }
-
-    public static Eventos newInstance(String param1, String param2) {
-        Eventos fragment = new Eventos();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.widget.Toolbar toolbar=requireActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Inclusão - Eventos");
+
     }
     private BottomSheetDialog dialog;
     private CalendarView calendarView;
@@ -113,16 +100,6 @@ public class Eventos extends Fragment {
     private String linkImagem;
     private int dia, mes, ano;
     private ProgressBar progressBar;
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        androidx.appcompat.widget.Toolbar toolbar=requireActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Inclusão - Eventos");
-
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

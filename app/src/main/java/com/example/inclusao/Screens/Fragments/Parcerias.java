@@ -41,64 +41,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Parcerias#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Parcerias extends Fragment {
-
-    String nomeUsuario ="none";
-    BottomSheetDialog dialog;
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private DatabaseReference referencia= FirebaseDatabase.getInstance().getReference();
-
-    public Parcerias() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ThirdFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    LinearLayout constr, constr2;
-    public static Parcerias newInstance(String param1, String param2) {
-        Parcerias fragment = new Parcerias();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
-    EditText txt_nomeSugest, txt_descSugest;
-
-    Button bt_submit;
     @Override
     public void onResume() {
         super.onResume();
@@ -106,6 +54,15 @@ public class Parcerias extends Fragment {
         toolbar.setTitle("Inclusão - Dicas");
 
     }
+    private String nomeUsuario = "none";
+    private BottomSheetDialog dialog;
+    private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
+    private LinearLayout constr, constr2;
+
+    private EditText txt_nomeSugest, txt_descSugest;
+
+    private Button bt_submit;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

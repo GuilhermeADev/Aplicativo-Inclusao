@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Screens.Redes_sociais"
+    tools:context=".Screens.Fragments.Redes_sociais"
     android:background="@drawable/background_menu">
 
     <androidx.constraintlayout.widget.ConstraintLayout

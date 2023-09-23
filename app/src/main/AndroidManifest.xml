@@ -27,37 +27,35 @@
             android:name=".Screens.Cursos"
             android:exported="false" />
         <activity
-            android:name=".Screens.NoticiaCompletaActivity"
+            android:name=".Screens.Activitys.NoticiaCompletaActivity"
             android:exported="false" />
         <activity
-            android:name=".Screens.Noticias"
+            android:name=".Screens.Activitys.Noticias"
             android:exported="false" />
         <activity
-            android:name=".Screens.Home"
+            android:name=".Screens.Activitys.Home"
             android:exported="false" />
         <activity
-            android:name=".Screens.FormCadastro2"
+            android:name=".Screens.Activitys.FormCadastro2"
             android:exported="false" />
         <activity
-            android:name=".Screens.Event"
+            android:name=".Screens.Fragments.Event"
             android:exported="false" />
         <activity
-            android:name=".Screens.WelcomeScreen3"
+            android:name=".Screens.Activitys.WelcomeScreen3"
             android:exported="false" />
         <activity
-            android:name=".Screens.WelcomeScreen2"
+            android:name=".Screens.Activitys.WelcomeScreen2"
             android:exported="false" />
         <activity
-            android:name=".Screens.WelcomeScreen1"
+            android:name=".Screens.Activitys.WelcomeScreen1"
             android:exported="false" />
         <activity
-            android:name=".Screens.FormCadastro"
+            android:name=".Screens.Activitys.FormCadastro"
             android:exported="false" />
+
         <activity
-            android:name=".Screens.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Screens.FormLogin"
+            android:name=".Screens.Activitys.FormLogin"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Inclusao">

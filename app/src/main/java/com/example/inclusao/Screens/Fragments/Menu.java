@@ -15,8 +15,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.example.inclusao.R;
-import com.example.inclusao.Screens.Noticias;
-import com.example.inclusao.Screens.WelcomeScreen1;
+import com.example.inclusao.Screens.Activitys.Noticias;
+import com.example.inclusao.Screens.Activitys.WelcomeScreen1;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,16 +34,6 @@ import java.util.List;
 
 public class Menu extends Fragment {
 
-    private String imageUrl; // URL da imagem do Firebase Storage
-
-    public Menu() {
-        // Required empty public constructor
-    }
-
-    public static Menu newInstance() {
-        return new Menu();
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -51,6 +41,7 @@ public class Menu extends Fragment {
         toolbar.setTitle("Inclusão - Menu");
 
     }
+    private String imageUrl; // URL da imagem do Firebase Storage
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

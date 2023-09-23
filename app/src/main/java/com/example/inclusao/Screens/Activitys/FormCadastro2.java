@@ -1,4 +1,4 @@
-package com.example.inclusao.Screens;
+package com.example.inclusao.Screens.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
